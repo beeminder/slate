@@ -198,6 +198,8 @@
     <link href="stylesheets/screen.css" rel="stylesheet" media="screen" />
     <link href="stylesheets/print.css" rel="stylesheet" media="print" />
       <script src="javascripts/all.js"></script>
+
+    <link href="images/favicon" rel="icon" type="image/" />
   </head>
 
   <body class="index" data-languages="[&quot;curl&quot;]">
@@ -208,7 +210,7 @@
       </span>
     </a>
     <div class="tocify-wrapper">
-      <img src="images/logo.png" alt="Logo" />
+      <img src="images/bee_logo_110.png" alt="Bee logo 110" />
         <div class="lang-selector">
               <a href="#" data-language-name="curl">curl</a>
         </div>
@@ -219,15 +221,17 @@
       <div id="toc">
       </div>
         <ul class="toc-footer">
-            <li><a href='#'>Sign Up for a Developer Key</a></li>
-            <li><a href='https://github.com/tripit/slate'>Documentation Powered by Slate</a></li>
+            <li><a href='https://www.beeminder.com'>Beeminder</a></li>
+            <li><a href='https://www.beeminder.com/apps/new'>Get an API key</a></li>
+            <li><a href='https://github.com/beeminder/slate'>Contribute to these docs!</a></li>
+            <li><a href='https://github.com/tripit/slate'>Docs powered by Slate</a></li>
         </ul>
     </div>
     <div class="page-wrapper">
       <div class="dark-box"></div>
       <div class="content">
         
-<h1 id="introduction">Introduction</h1>
+<h1 id="beeminder_api_reference">Beeminder API Reference</h1>
 
 <h2 id="this_is_out_of_date">THIS IS OUT OF DATE</h2>
 
@@ -235,11 +239,11 @@
 
 <p>I just pulled this over from an out of date Markdown-ified version of the Beeminder API docs. Now that everything is mostly pulled in here and formatted in some reasonable way, I still need to bring it fully up to date with the current, published docs at <a href="https://www.beeminder.com/api">beeminder.com/api</a>.</p>
 
-<h2 id="now_the_real_intro">Now, the real intro</h2>
+<h2 id="introduction">Introduction</h2>
 
 <p>In case you’re here to automate adding data to Beeminder, there’s a good chance we’ve got you covered with our <a href="http://beeminder.com/zapier" title="Zapier is a service like IFTTT that connects hundreds of disparate webservices. In the case of Beeminder you can create triggers in other webservices that automatically cause data to be added to Beeminder graphs.">Zapier integration</a> or our <a href="http://ifthisMINDthat.com" title="IFTTT = If This Then That">IFTTT integration</a>. If you’re looking for ideas for things to do with the Beeminder API, we have a <a href="http://blog.beeminder.com/api" title="This was the blog post that originally announced our API in 2012 but we've updated occasionally since then with links to things people are doing with it">blog post with lots of examples</a>. The <a href="http://forum.beeminder.com/c/tech" title="Yay Discourse.org!">tech category of our forum</a> is a good place to ask questions and show off what you’re working on.</p>
 
-<p>It’s really important to us that this API be easy for developers to use so please don’t be shy about asking us questions. Whether you post in <a href="http://forum.beeminder.com" title="The above link is the Tech subset of the forum; this link is to the main page for the forum">the forum</a> or email us at support@beeminder.com we’ve invariably found that questions people avoided asking for fear they were dumb turned out to point to things we needed to improve in the API or the documentation. So lean on us heavily as you’re hacking away with our API – it helps us a lot when you do!</p>
+<p>It’s really important to us that this API be easy for developers to use so please don’t be shy about asking us questions. Whether you post in <a href="http://forum.beeminder.com" title="The above link is the Tech subset of the forum; this link is to the main page for the forum">the forum</a> or email us at <strong>support@beeminder.com</strong> we’ve invariably found that questions people avoided asking for fear they were dumb turned out to point to things we needed to improve in the API or the documentation. So lean on us heavily as you’re hacking away with our API – it helps us a lot when you do!</p>
 
 <h2 id="preliminaries">Preliminaries</h2>
 
@@ -265,9 +269,9 @@ Note: A common mistake is to pass the personal auth token but call the parameter
 
 <p>This authentication pattern is for making API calls just to your own Beeminder account.</p>
 
-<p>After you <a href="https://www.beeminder.com/users/sign_in">sign in to Beeminder</a>, visit <a href='https://www.beeminder.com/api/v1/auth_token.json'><code>https://www.beeminder.com/api/v1/auth_token.json</code></a> to get your personal auth token. Append it to API requests you make as an additional GET or POST parameter.</p>
+<p>After you <a href="https://www.beeminder.com/users/sign_in">log in to Beeminder</a>, visit <a href='https://www.beeminder.com/api/v1/auth_token.json'><code>https://www.beeminder.com/api/v1/auth_token.json</code></a> to get your personal auth token. Append it to API requests you make as an additional GET or POST parameter.</p>
 
-<h2 id="oauth">Client Oauth</h2>
+<h2 id="oauth">Client OAuth</h2>
 
 <p>This authentication pattern is for clients (applications) accessing the Beeminder API on a user’s behalf. Beeminder implements the <a href="http://oauth.net/" title="Specifically Oauth2">OAuth</a> provider protocol to allow access reasonably securely.</p>
 
@@ -315,13 +319,17 @@ Note: A common mistake is to pass the personal auth token but call the parameter
 
 <pre class="json"><code class="json">  GET https://www.beeminder.com/api/v1/users/me.json?access_token=abc123</code></pre>
 
-<p>Append the access token as a parameter on any API requests you make on behalf of that user. For example, your first request will probably be to get information about the <a href="#user">User</a> who just authorized your app and so will look something like this:</p>
+<p>Append the access token as a parameter on any API requests you make on behalf of that user. For example, your first request will probably be to get information about the <a href="#user">User</a> who just authorized your app.</p>
 
 <p>You can literally use “me” in place of the username for any endpoint and it will be macro-expanded to the username of the authorized user.</p>
 
 <h3 id="5_optional_deauthorization_callback">5. Optional: De-authorization callback</h3>
 
-<p>If you provide a Post De-Authorization Callback url when you register your client, we will make a POST to your endpoint when a user removes your app. The POST will include the access_token removed in the body of the request.</p>
+<p>If you provide a Post De-Authorization Callback URL when you register your client, we will make a POST to your endpoint when a user removes your app. The POST will include the access_token removed in the body of the request.</p>
+
+<h3 id="6_optional_autofetch_callback">6. Optional: Autofetch callback</h3>
+
+<p>The autofetch callback URL is also optional. We will POST to this URL if provided, including the params username, and slug when the user wants new data from you. E.g., when the user pushes the manual refresh button, or prior to sending alerts to the user, and before derailing the goal at the end of an eep day.</p>
 
 <p><a href="#">Back to top</a></p>
 
@@ -340,7 +348,7 @@ Note: A common mistake is to pass the personal auth token but call the parameter
 
 <li><code>goals</code> (array): A list of slugs for each of the user’s goals, or an array of goal hashes (objects) if <code>diff_since</code> or <code>associations</code> is sent.</li>
 
-<li><code>deadbeat</code> (boolean): True if the user’s payment info is out of date, or a an attempted payment has failed.</li>
+<li><code>deadbeat</code> (boolean): True if the user’s payment info is out of date, or an attempted payment has failed.</li>
 
 <li><code>deleted_goals</code> (array): An array of hashes, each with one key/value pair for the id of the deleted goal. Only returned if <code>diff_since</code> is sent.</li>
 </ul>
@@ -432,7 +440,7 @@ safebump
 </li>
 
 <li>
-<p>[<code>datapoints_count</code>] (number): number of datapoints. Default: null, which will return all goals and datapoints<br />Send a number <code>n</code> to only recieve the <code>n</code> most recently added datapoints, sorted by <code>updated_at</code>. Note that the most recently added datapoint could have been a datapoint whose timestamp is well in the past and therefore before other datapoints in that respect. For example, my datapoints might look like:<br />12 1<br />14 1<br />15 1<br />16 1<br />If I go back and realize that I forgot to enter data on the 13th, the datapoint for the 13th will be sorted ahead of the one on the 16th:<br />12 1<br />14 1<br />15 1<br />16 1<br />13 1</p>
+<p>[<code>datapoints_count</code>] (number): number of datapoints. Default: null, which will return all goals and datapoints. Send a number <code>n</code> to only recieve the <code>n</code> most recently added datapoints, sorted by <code>updated_at</code>. Note that the most recently added datapoint could have been a datapoint whose timestamp is well in the past and therefore before other datapoints in that respect. For example, my datapoints might look like:<br />12 1<br />14 1<br />15 1<br />16 1<br />If I go back and realize that I forgot to enter data on the 13th, the datapoint for the 13th will be sorted ahead of the one on the 16th:<br />12 1<br />14 1<br />15 1<br />16 1<br />13 1</p>
 </li>
 </ul>
 
@@ -468,7 +476,7 @@ safebump
 
 <h1 id="goal">Goal Resource</h1>
 
-<p>A Goal object includes the everything about a specific goal for a specific user, including the target value and date, the steepness of the yellow brick road, the graph image, and various settings for the goal.</p>
+<p>A Goal object includes everything about a specific goal for a specific user, including the target value and date, the steepness of the yellow brick road, the graph image, and various settings for the goal.</p>
 
 <h3 id="attributes_2">Attributes</h3>
 
@@ -477,9 +485,9 @@ safebump
 
 <li><code>updated_at</code> (number): <a href="http://en.wikipedia.org/wiki/Unix_time">Unix timestamp</a> of the last time this goal was updated.</li>
 
-<li><code>burner</code> (string): One of <code>frontburner</code>, <code>backburner</code>. Indicates whether the goal is on the “frontburner” for the user in their gallery or whether the goal has been relegated to the “backburner” (below the fold on the web interface).</li>
-
 <li><code>title</code> (string): The title that the user specified for the goal. E.g., “Weight Loss”.</li>
+
+<li><code>fineprint</code> (string): The user-provided description of what exactly they are committing to.</li>
 
 <li><code>yaxis</code> (string): The label for the y-axis of the graph. E.g., “Cumulative total hours”.</li>
 
@@ -517,9 +525,9 @@ safebump
 
 <li><code>queued</code> (boolean): Whether the graph is currently being updated to reflect new data.</li>
 
-<li><code>secret</code> (boolean): Whether you have to be signed in as owner of the goal to view it. Default: <code>false</code>.</li>
+<li><code>secret</code> (boolean): Whether you have to be logged in as owner of the goal to view it. Default: <code>false</code>.</li>
 
-<li><code>datapublic</code> (boolean): Whether you have to be signed in as the owner of the goal to view the datapoints. Default: <code>false</code>.</li>
+<li><code>datapublic</code> (boolean): Whether you have to be logged in as the owner of the goal to view the datapoints. Default: <code>false</code>.</li>
 
 <li><code>datapoints</code> (array of <a href="#datapoint">Datapoints</a>): The datapoints for this goal.</li>
 
@@ -556,8 +564,6 @@ safebump
 <li><code>kyoom</code> (boolean): Cumulative; plot values as the sum of all those entered so far, aka auto-summing.</li>
 
 <li><code>odom</code> (boolean): Treat zeros as accidental odometer resets.</li>
-
-<li><code>edgy</code> (boolean): Put the initial point on the road edge instead of centerline.</li>
 
 <li><code>noisy</code> (boolean): Compute road width based on data, not just road rate.</li>
 
@@ -605,7 +611,7 @@ safebump
 
 <li><code>lanewidth</code> (number): Width of the lanes on either side of the centerline of the yellow brick road, i.e., half the road width.</li>
 
-<li><code>deadline</code> (number): Seconds by which your deadline differs from midnight. Negative is before midnight, positive is after midnight. Allowed range is -17*3600 to 6*3600 (7am to 6am).</li>
+<li><code>deadline</code> (number): Seconds by which your deadline differs from midnight. Negative is before midnight, positive is after midnight. Allowed range is -17<em>3600 to 6</em>3600 (7am to 6am).</li>
 
 <li><code>leadtime</code> (number): Days before derailing we start sending you reminders. Zero means we start sending them on the eep day, when you will derail later that day.</li>
 
@@ -613,7 +619,7 @@ safebump
 
 <li><code>plotall</code> (boolean): Whether to plot all the datapoints, or only the <code>aggday</code>‘d one. So if false then only the official datapoint that’s counted is plotted.</li>
 
-<li><code>ephem</code> (boolean): Deprecated and should be removed. Whether a goal is a temporary test goal, of which there is no longer any such thing.</li>
+<li><code>last_datapoint</code> (<a href="#datapoint">Datapoint</a>): The last datapoint entered for this goal.</li>
 </ul>
 
 <p>The goal types are shorthand for a collection of settings of more fundamental goal attributes. Note that changing the goal type of an already-created goal has no effect on those fundamental goal attributes. The following table lists what those attributes are.</p>
@@ -631,14 +637,9 @@ safebump
 <tr><td style="text-align: left;"><code>aura</code></td><td style="text-align: left;">false</td><td style="text-align: left;">false</td><td style="text-align: left;">true</td><td style="text-align: left;">true</td><td style="text-align: left;">false</td></tr>
 </tbody></table>
 <p>There are four broad, theoretical categories – called the platonic goal types – that goals fall into, defined by <code>dir</code> and <code>yaw</code>:</p>
-<pre style="border: solid 3px red; background-color: pink" class="markdown-html-error">Maruku could not parse this XML/HTML: 
-&lt;pre&gt;
-PHAT = dir -1 &amp; yaw -1 = &quot;go down, like weightloss or gmailzero&quot;
-MOAR = dir +1 &amp; yaw +1 = &quot;go up, like work out more&quot;
-WEEN = dir +1 &amp; yaw -1 = &quot;go up less, like quit smoking&quot;
-RASH = dir -1 &amp; yaw +1 = &quot;go down less, ie, rationing, eg, 
-&lt;a href=&quot;http://beeminder.com/d/contacts&quot; title=&quot;The Beeminder CEO with an early Beeminder graph to ration his supply of &#39;daily&#39; contact lenses to last for 2 years, till 2013&quot;&gt;bmndr.com/d/contacts&lt;/a&gt;&quot;
-&lt;/pre&gt;</pre>
+
+<p><code>PHAT = dir -1 &amp; yaw -1</code>: “go down, like weightloss or gmailzero”<br /> <code>MOAR = dir +1 &amp; yaw +1</code>: “go up, like work out more”<br /> <code>WEEN = dir +1 &amp; yaw -1</code>: “go up less, like quit smoking”<br /> <code>RASH = dir -1 &amp; yaw +1</code>: “go down less, ie, rationing, <a href='http://beeminder.com/d/contacts' title='The Beeminder CEO with an early Beeminder graph to ration his supply of &apos;daily&apos; contact lenses to last for 2 years, till 2013'>for example</a>”</p>
+
 <p>The <code>dir</code> parameter is mostly just for the above categorization, but is used specifically in the following ways:</p>
 
 <ol>
@@ -753,6 +754,10 @@ RASH = dir -1 &amp; yaw +1 = &quot;go down less, ie, rationing, eg,
 
 <p>Get user <em>u</em>‘s list of goals.</p>
 
+<h3 id="parameters_4">Parameters</h3>
+
+<p>None.</p>
+
 <h3 id="returns_3">Returns</h3>
 
 <p>A list of <a href="#goal">Goal</a> objects for the user.</p>
@@ -784,7 +789,7 @@ RASH = dir -1 &amp; yaw +1 = &quot;go down less, ie, rationing, eg,
 
 <p>Create a new goal for user <em>u</em>.</p>
 
-<h3 id="parameters_4">Parameters</h3>
+<h3 id="parameters_5">Parameters</h3>
 
 <ul>
 <li><code>slug</code> (string)</li>
@@ -807,10 +812,14 @@ RASH = dir -1 &amp; yaw +1 = &quot;go down less, ie, rationing, eg,
 
 <li>[<code>datapublic</code>] (boolean)</li>
 
+<li>[<code>datasource</code>] (string): one of {“manual”, “api”, “ifttt”, “zapier”, or <code>clientname</code>}. Default: “manual”.</li>
+
 <li>[<code>dryrun</code>] (boolean). Pass this to test the endpoint without actually creating a goal. Defaults to false.</li>
 </ul>
 
 <p><a href="http://youtu.be/QM9Bynjh2Lk?t=4m14s">Exactly</a> two out of three of <code>goaldate</code>, <code>goalval</code>, and <code>rate</code> are required.</p>
+
+<p>If you pass in your API client’s registered name for the <code>datasource</code>, and your client has a registered <code>autofetch_callback_url</code>, we will POST <code>{username: u, slug: s}</code> to your callback when this goal wants new data.</p>
 
 <h3 id="returns_4">Returns</h3>
 
@@ -845,7 +854,7 @@ RASH = dir -1 &amp; yaw +1 = &quot;go down less, ie, rationing, eg,
 
 <p>Update user <em>u</em>‘s goal with slug <em>g</em>. This is similar to the call to create a new goal, but the goal type (<code>goal_type</code>) cannot be changed. To change any of {<code>goaldate</code>, <code>goalval</code>, <code>rate</code>} use the <code>dial_road</code> call below.</p>
 
-<h3 id="parameters_5">Parameters</h3>
+<h3 id="parameters_6">Parameters</h3>
 
 <ul>
 <li>[<code>slug</code>] (string)</li>
@@ -877,6 +886,12 @@ RASH = dir -1 &amp; yaw +1 = &quot;go down less, ie, rationing, eg,
 <li>Validation is not yet implemented for exponential goals (so this will error on them, unless you are an admin).</li>
 </ul>
 </li>
+
+<li>[<code>datasource</code>] (string): one of {“manual”, “api”, “ifttt”, “zapier”, or <code>clientname</code>}. Default: “manual”.
+<ul>
+<li>If you pass in your api client’s registered name for <code>datasource</code>, and your client has a registered <code>autofetch_callback_url</code>, we will POST <code>{username: u, slug: s}</code> to your callback when this goal wants new data.</li>
+</ul>
+</li>
 </ul>
 
 <h3 id="returns_5">Returns</h3>
@@ -899,7 +914,7 @@ RASH = dir -1 &amp; yaw +1 = &quot;go down less, ie, rationing, eg,
 
 <p>Analagous to the refresh button on the goal page. Forces a refetch of autodata for goals with automatic data sources. Refreshes the graph image regardless. <strong><em>Please be extremely conservative with this endpoint!</em></strong></p>
 
-<h3 id="parameters_6">Parameters</h3>
+<h3 id="parameters_7">Parameters</h3>
 
 <p>None.</p>
 
@@ -934,7 +949,7 @@ Note: the dial_road endpoint is deprecated in favor of
 </aside>
 <p>Change the slope of the yellow brick road (starting after the one-week <a href="http://blog.beeminder.com/dial">Akrasia Horizon</a>) for beeminder.com/<em>u</em>/<em>g</em>.</p>
 
-<h3 id="parameters_7">Parameters</h3>
+<h3 id="parameters_8">Parameters</h3>
 
 <ul>
 <li><code>rate</code> (number or null)</li>
@@ -958,7 +973,7 @@ Note: the dial_road endpoint is deprecated in favor of
 
 <p>Increase the goal’s pledge level and <strong>charge the user the amount of the current pledge</strong>.</p>
 
-<h3 id="parameters_8">Parameters</h3>
+<h3 id="parameters_9">Parameters</h3>
 
 <p>None</p>
 
@@ -974,7 +989,7 @@ Note: the dial_road endpoint is deprecated in favor of
 
 <p>Decrease the goal’s pledge level <strong>subject to the akrasia horizon</strong>, i.e., not immediately. After a successful request the goal will have a countdown to when it will revert to the lower pledge level.</p>
 
-<h3 id="parameters_9">Parameters</h3>
+<h3 id="parameters_10">Parameters</h3>
 
 <p>None</p>
 
@@ -990,7 +1005,7 @@ Note: the dial_road endpoint is deprecated in favor of
 
 <p>Cancel a pending stepdown of a goal’s pledge. The pledge will remain at the current amount.</p>
 
-<h3 id="parameters_10">Parameters</h3>
+<h3 id="parameters_11">Parameters</h3>
 
 <p>None</p>
 
@@ -1039,7 +1054,7 @@ Note: the dial_road endpoint is deprecated in favor of
 
 <p>Get the list of datapoints for user <em>u</em>‘s goal <em>g</em> – beeminder.com/<em>u</em>/<em>g</em>.</p>
 
-<h3 id="parameters_11">Parameters</h3>
+<h3 id="parameters_12">Parameters</h3>
 
 <p>None.</p>
 
@@ -1068,18 +1083,18 @@ Note: the dial_road endpoint is deprecated in favor of
 
 <p>Add a new datapoint to user <em>u</em>‘s goal <em>g</em> – beeminder.com/<em>u</em>/<em>g</em>.</p>
 
-<h3 id="parameters_12">Parameters</h3>
+<h3 id="parameters_13">Parameters</h3>
 
 <ul>
-<li>[<code>timestamp</code>] (number). Default: now, or the existing timestamp if the datapoint is being updated rather than created.</li>
+<li><code>value</code> (number)</li>
+
+<li>[<code>timestamp</code>] (number). Defaults to “now” if none is passed in, or the existing timestamp if the datapoint is being updated rather than created (see <code>requestid</code> below).</li>
 
 <li>[<code>daystamp</code>] (string). Optionally you can include daystamp instead of the timestamp. If both are included, timestamp takes precedence.</li>
 
-<li><code>value</code> (number)</li>
-
 <li>[<code>comment</code>] (string)</li>
 
-<li>[<code>requestid</code>] (string): Alphanumeric string to uniquely identify this datapoint (within this goal. The same requestid can be used for different goals without being considered a duplicate). Clients can use this to verify that Beeminder received a datapoint (important for clients with spotty connectivity). Using requestids also means clients can safely resend datapoints without accidentally creating duplicates. If <code>requestid</code> is included and the datapoint is identical to the existing datapoint with that requestid then the datapoint will be ignored (the API will return “duplicate datapoint”). If <code>requestid</code> is included and the datapoint differs from the existing one with the same requestid then the datapoint will be updated. If no datapoint with the requestid exists then of course the datapoint is simply created. In other words, this is an upsert endpoint and requestid is an idempotency key. NB: Must contain only alphanumeric characters or it will be ignored.</li>
+<li>[<code>requestid</code>] (string): Alphanumeric string to uniquely identify this datapoint (scoped to this goal. The same <code>requestid</code> can be used for different goals without being considered a duplicate). Clients can use this to verify that Beeminder received a datapoint (important for clients with spotty connectivity). Using requestids also means clients can safely resend datapoints without accidentally creating duplicates. If <code>requestid</code> is included and the datapoint is identical to the existing datapoint with that requestid then the datapoint will be ignored (the API will return “duplicate datapoint”). If <code>requestid</code> is included and the datapoint differs from the existing one with the same requestid then the datapoint will be updated. If no datapoint with the requestid exists then of course the datapoint is simply created. In other words, this is an upsert endpoint and requestid is an idempotency key. NB: Must contain only alphanumeric characters or it will be ignored.</li>
 </ul>
 
 <h3 id="returns_12">Returns</h3>
@@ -1115,7 +1130,7 @@ Note: the dial_road endpoint is deprecated in favor of
 
 <p>Create multiple new datapoints for beeminder.com/<em>u</em>/<em>g</em>.</p>
 
-<h3 id="parameters_13">Parameters</h3>
+<h3 id="parameters_14">Parameters</h3>
 
 <ul>
 <li><code>datapoints</code> (array of Datapoints): Each must include <code>timestamp</code>, <code>value</code>, and <code>comment</code>, with <code>requestid</code> optional.</li>
@@ -1146,7 +1161,7 @@ Note: the dial_road endpoint is deprecated in favor of
 
 <p>Update the datapoint with ID <em>id</em> for user <em>u</em>‘s goal <em>g</em> (beeminder.com/<em>u</em>/<em>g</em>).</p>
 
-<h3 id="parameters_14">Parameters</h3>
+<h3 id="parameters_15">Parameters</h3>
 
 <ul>
 <li>[<code>timestamp</code>] (number)</li>
@@ -1181,7 +1196,7 @@ Note: the dial_road endpoint is deprecated in favor of
 
 <p>Delete the datapoint with ID <em>id</em> for user <em>u</em>‘s goal <em>g</em> (beeminder.com/<em>u</em>/<em>g</em>).</p>
 
-<h3 id="parameters_15">Parameters</h3>
+<h3 id="parameters_16">Parameters</h3>
 
 <p>None.</p>
 
@@ -1200,7 +1215,7 @@ Note: the dial_road endpoint is deprecated in favor of
 <ul>
 <li><code>amount</code> (number): The amount to charge the user, in US dollars.</li>
 
-<li><code>note</code> (string): An explanation of why the charge was made, or <code>null</code> if none was provided.</li>
+<li><code>note</code> (string): An explanation of why the charge was made.</li>
 
 <li><code>username</code> (string): The Beeminder username of the user being charged.</li>
 </ul>
@@ -1231,19 +1246,19 @@ Note: the dial_road endpoint is deprecated in favor of
 
 <p>Create a charge of a given amount and optionally add a note.</p>
 
-<h3 id="parameters_16">Parameters</h3>
+<h3 id="parameters_17">Parameters</h3>
 
 <ul>
-<li><code>amount</code> (number): The amount to charge the user, in US dollars.</li>
+<li><code>amount</code> (number)</li>
 
-<li>[<code>note</code>] (string): An explanation of why the charge was made.</li>
+<li><code>note</code> (string)</li>
 
 <li>[<code>dryrun</code>] (string): If passed, the Charge is not actually created, but the JSON for it is returned as if it were. Default: false.</li>
 </ul>
 
 <h3 id="returns_16">Returns</h3>
 
-<p>The Charge object, or a dictionary with the error message(s) if the request was not successful.</p>
+<p>The Charge object, or an object with the error message(s) if the request was not successful.</p>
 
 <p><a href="#">Back to top</a></p>
 
@@ -1258,23 +1273,18 @@ Note: the dial_road endpoint is deprecated in favor of
     &quot;slug&quot;: &quot;example&quot;, ... }  
   }</code></pre>
 
-<p>You can configure Beeminder to remind you about goals that are about to derail via webhook, either on the individual goal settings page or on your <a href="https://www.beeminder.com/settings/account">account defaults page</a>.</p>
+<p>You can configure Beeminder to remind you about goals that are about to derail via webhook, either on the individual goal settings page or on your reminder settings page.</p>
 
 <p>Beeminder will remind you via POST request to the URL you specify with a JSON body with all the attributes specified in the description of the <a href="#goal">Goal Resource</a>.</p>
 
           
 <h1 id="errors">Errors</h1>
-<aside class='notice'>This error section is stored in a separate file in `includes/_errors.md`. Slate allows you to optionally separate out your docs into many files...just save them to the `includes` folder and add them to the top of your `index.md`'s frontmatter. Files are included in the order listed.</aside>
-<p>The Kittn API uses the following error codes:</p>
-<table><thead><tr><th>Error Code</th><th>Meaning</th></tr></thead><tbody><tr><td style="text-align: left;">400</td><td style="text-align: left;">Bad Request – Your request sucks</td></tr>
-<tr><td style="text-align: left;">401</td><td style="text-align: left;">Unauthorized – Your API key is wrong</td></tr>
-<tr><td style="text-align: left;">403</td><td style="text-align: left;">Forbidden – The kitten requested is hidden for administrators only</td></tr>
-<tr><td style="text-align: left;">404</td><td style="text-align: left;">Not Found – The specified kitten could not be found</td></tr>
-<tr><td style="text-align: left;">405</td><td style="text-align: left;">Method Not Allowed – You tried to access a kitten with an invalid method</td></tr>
-<tr><td style="text-align: left;">406</td><td style="text-align: left;">Not Acceptable – You requested a format that isn’t json</td></tr>
-<tr><td style="text-align: left;">410</td><td style="text-align: left;">Gone – The kitten requested has been removed from our servers</td></tr>
-<tr><td style="text-align: left;">418</td><td style="text-align: left;">I’m a teapot</td></tr>
-<tr><td style="text-align: left;">429</td><td style="text-align: left;">Too Many Requests – You’re requesting too many kittens! Slow down!</td></tr>
+
+<p>The Beeminder API uses the following error codes. Check your HTTP response code, but also we will usually pass back a JSON object with a key <code>errors</code> that will hopefully illuminate what went wrong.</p>
+<table><thead><tr><th>Error Code</th><th>Meaning</th></tr></thead><tbody><tr><td style="text-align: left;">400</td><td style="text-align: left;">Bad Request</td></tr>
+<tr><td style="text-align: left;">401</td><td style="text-align: left;">Unauthorized – Wrong / missing key. (Check your parameter name?)</td></tr>
+<tr><td style="text-align: left;">404</td><td style="text-align: left;">Not Found – Couldn’t find that resource, or path requested.</td></tr>
+<tr><td style="text-align: left;">406</td><td style="text-align: left;">Not Acceptable – Check the format of your params?</td></tr>
 <tr><td style="text-align: left;">500</td><td style="text-align: left;">Internal Server Error – We had a problem with our server. Try again later.</td></tr>
 <tr><td style="text-align: left;">503</td><td style="text-align: left;">Service Unavailable – We’re temporarily offline for maintenance. Please try again later.</td></tr>
 </tbody></table>
