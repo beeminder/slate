@@ -231,6 +231,10 @@
 
 <h2 id="introduction">Introduction</h2>
 
+<blockquote>
+<p>See <a href='https://github.com/beeminder'>github.com/beeminder</a> for API libraries in various languages. Examples here are currently just curl so far.</p>
+</blockquote>
+
 <p>In case you’re here to automate adding data to Beeminder, there’s a good chance we’ve got you covered with our <a href="http://beeminder.com/zapier" title="Zapier is a service like IFTTT that connects hundreds of disparate webservices. In the case of Beeminder you can create triggers in other webservices that automatically cause data to be added to Beeminder graphs.">Zapier integration</a> or our <a href="http://ifthisMINDthat.com" title="IFTTT = If This Then That">IFTTT integration</a>. If you’re looking for ideas for things to do with the Beeminder API, we have a <a href="http://blog.beeminder.com/api" title="This was the blog post that originally announced our API in 2012 but we've updated occasionally since then with links to things people are doing with it">blog post with lots of examples</a>. The <a href="http://forum.beeminder.com/c/tech" title="Yay Discourse.org!">tech category of our forum</a> is a good place to ask questions and show off what you’re working on.</p>
 
 <p>It’s really important to us that this API be easy for developers to use so please don’t be shy about asking us questions. Whether you post in <a href="http://forum.beeminder.com" title="The above link is the Tech subset of the forum; this link is to the main page for the forum">the forum</a> or email us at <strong>support@beeminder.com</strong> we’ve invariably found that questions people avoided asking for fear they were dumb turned out to point to things we needed to improve in the API or the documentation. So lean on us heavily as you’re hacking away with our API – it helps us a lot when you do!</p>
@@ -247,7 +251,9 @@
 
 <p>All API endpoints require authentication. There are two ways to authenticate. Both ultimately give you a token which you must then include with every API request.</p>
 <aside class='notice'>
-Note: A common mistake is to pass the personal auth token but call the parameter access_token, or vice-versa. The parameter name for your personal auth token should be `auth_token`.
+Note: A common mistake is to pass the personal auth token but call the parameter
+access_token, or vice-versa. 
+The parameter name for your personal auth token should be `auth_token`.
 </aside>
 <h2 id="personal_authentication_token">Personal authentication token</h2>
 
@@ -255,7 +261,7 @@ Note: A common mistake is to pass the personal auth token but call the parameter
 <p>For example, if your username is “alice” and your token is “abc123” you can query information about your “weight” goal like so:</p>
 </blockquote>
 
-<pre class="json"><code class="json">  GET https://www.beeminder.com/api/v1/users/alice/goals/weight.json?auth_token=abc123</code></pre>
+<pre class="json"><code class="json">GET https://www.beeminder.com/api/v1/users/alice/goals/weight.json?auth_token=abc123</code></pre>
 
 <p>This authentication pattern is for making API calls just to your own Beeminder account.</p>
 
