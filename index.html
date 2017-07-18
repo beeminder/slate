@@ -231,10 +231,6 @@
 
 <h2 id="introduction">Introduction</h2>
 
-<blockquote>
-<p>See <a href='https://github.com/beeminder'>github.com/beeminder</a> for API libraries in various languages. Examples here are currently just curl so far.</p>
-</blockquote>
-
 <p>In case you’re here to automate adding data to Beeminder, there’s a good chance we’ve got you covered with our <a href="http://beeminder.com/zapier" title="Zapier is a service like IFTTT that connects hundreds of disparate webservices. In the case of Beeminder you can create triggers in other webservices that automatically cause data to be added to Beeminder graphs.">Zapier integration</a> or our <a href="http://ifthisMINDthat.com" title="IFTTT = If This Then That">IFTTT integration</a>. If you’re looking for ideas for things to do with the Beeminder API, we have a <a href="http://blog.beeminder.com/api" title="This was the blog post that originally announced our API in 2012 but we've updated occasionally since then with links to things people are doing with it">blog post with lots of examples</a>. The <a href="http://forum.beeminder.com/c/tech" title="Yay Discourse.org!">tech category of our forum</a> is a good place to ask questions and show off what you’re working on.</p>
 
 <p>It’s really important to us that this API be easy for developers to use so please don’t be shy about asking us questions. Whether you post in <a href="http://forum.beeminder.com" title="The above link is the Tech subset of the forum; this link is to the main page for the forum">the forum</a> or email us at <strong>support@beeminder.com</strong> we’ve invariably found that questions people avoided asking for fear they were dumb turned out to point to things we needed to improve in the API or the documentation. So lean on us heavily as you’re hacking away with our API – it helps us a lot when you do!</p>
@@ -251,9 +247,7 @@
 
 <p>All API endpoints require authentication. There are two ways to authenticate. Both ultimately give you a token which you must then include with every API request.</p>
 <aside class='notice'>
-Note: A common mistake is to pass the personal auth token but call the parameter
-access_token, or vice-versa. 
-The parameter name for your personal auth token should be `auth_token`.
+Note: A common mistake is to pass the personal auth token but call the parameter access_token, or vice-versa. The parameter name for your personal auth token should be `auth_token`.
 </aside>
 <h2 id="personal_authentication_token">Personal authentication token</h2>
 
@@ -261,7 +255,7 @@ The parameter name for your personal auth token should be `auth_token`.
 <p>For example, if your username is “alice” and your token is “abc123” you can query information about your “weight” goal like so:</p>
 </blockquote>
 
-<pre class="json"><code class="json">GET https://www.beeminder.com/api/v1/users/alice/goals/weight.json?auth_token=abc123</code></pre>
+<pre class="json"><code class="json">  GET https://www.beeminder.com/api/v1/users/alice/goals/weight.json?auth_token=abc123</code></pre>
 
 <p>This authentication pattern is for making API calls just to your own Beeminder account.</p>
 
@@ -283,8 +277,8 @@ The parameter name for your personal auth token should be `auth_token`.
 <p>Example authorization URL:</p>
 </blockquote>
 
-<pre><code>  https://www.beeminder.com/apps/authorize?\ 
-   client_id=xyz456&amp;redirect_uri=http&amp;#58;//foo.com/auth_callback\ 
+<pre><code>  https://www.beeminder.com/apps/authorize?\
+   client_id=xyz456&amp;redirect_uri=http&amp;#58;//foo.com/auth_callback\
    &amp;response_type=token</code></pre>
 
 <p>The base URL is the same for all apps: <code>https://www.beeminder.com/apps/authorize</code>. You’ll need to add the following parameters:</p>
@@ -367,18 +361,18 @@ The parameter name for your personal auth token should be `auth_token`.
   { &quot;username&quot;: &quot;alice&quot;,
     &quot;timezone&quot;: &quot;America/Los_Angeles&quot;,
     &quot;updated_at&quot;: 1343449880,                       
-    &quot;goals&quot;: [ {&quot;slug&quot;: &quot;weight&quot;, ..., 
+    &quot;goals&quot;: [ {&quot;slug&quot;: &quot;weight&quot;, ...,
                &quot;datapoints&quot;: [{&quot;timestamp&quot;: 1325523600,    
                     &quot;value&quot;: 70.45,            
                     &quot;comment&quot;: &quot;blah blah&quot;,     
-                    &quot;id&quot;: &quot;4f9dd9fd86f22478d3&quot;}, 
+                    &quot;id&quot;: &quot;4f9dd9fd86f22478d3&quot;},
                    {&quot;timestamp&quot;: 1325610000,
                     &quot;value&quot;: 70.85,
-                    &quot;comment&quot;: &quot;blah blah&quot;, 
-                    &quot;id&quot;: &quot;5f9d79fd86f33468d4&quot;}], 
-               &quot;title&quot;: &quot;Weight Loss&quot;, ...}, 
+                    &quot;comment&quot;: &quot;blah blah&quot;,
+                    &quot;id&quot;: &quot;5f9d79fd86f33468d4&quot;}],
+               &quot;title&quot;: &quot;Weight Loss&quot;, ...},
                { another goal }, ... ],
-    &quot;deleted_goals&quot;: [{ &quot;id&quot;: &quot;519279fd86f33468ne&quot;}, ... ] 
+    &quot;deleted_goals&quot;: [{ &quot;id&quot;: &quot;519279fd86f33468ne&quot;}, ... ]
 }</code></pre>
 
 <h3 id="http_request">HTTP Request</h3>
@@ -401,7 +395,7 @@ The parameter name for your personal auth token should be `auth_token`.
 </li>
 
 <li>
-<p>[<code>skinny</code>] (boolean): Convenience method to only get a subset of goal attributes and the most recent datapoint for the goal. Default: false, which will return all goal attributes and all datapoints created or updated since <code>diff_since</code>.<br /><code>skinny</code> must be sent along with <code>diff_since</code>. If <code>diff_since</code> is not present, <code>skinny</code> is ignored. Some goal attributes, as well as fetching all datapoints, can take some additional time to compute on the server side, so you can send <code>skinny</code> if you only need the latest datapoint and the following subset of attributes: <code>slug, 
+<p>[<code>skinny</code>] (boolean): Convenience method to only get a subset of goal attributes and the most recent datapoint for the goal. Default: false, which will return all goal attributes and all datapoints created or updated since <code>diff_since</code>.<br /><code>skinny</code> must be sent along with <code>diff_since</code>. If <code>diff_since</code> is not present, <code>skinny</code> is ignored. Some goal attributes, as well as fetching all datapoints, can take some additional time to compute on the server side, so you can send <code>skinny</code> if you only need the latest datapoint and the following subset of attributes: <code>slug,
 title,
 description,
 goalval,
@@ -686,7 +680,7 @@ safebump
     &quot;datapoints&quot;: [{&quot;timestamp&quot;: 1325523600,    
                     &quot;value&quot;: 70.45,            
                     &quot;comment&quot;: &quot;blah blah&quot;,     
-                    &quot;id&quot;: &quot;4f9dd9fd86f22478d3&quot;}, 
+                    &quot;id&quot;: &quot;4f9dd9fd86f22478d3&quot;},
                    {&quot;timestamp&quot;: 1325610000,
                     &quot;value&quot;: 70.85,
                     &quot;comment&quot;: &quot;blah blah&quot;,
@@ -717,7 +711,7 @@ safebump
 
 <pre class="json"><code class="json">  GET /api/v1/users/alice/goals.json?filter=frontburner
 
-  [ 
+  [
     { &quot;slug&quot;: &quot;gmailzero&quot;,
       &quot;title&quot;: &quot;Inbox Zero&quot;,
       &quot;goal_type&quot;: &quot;inboxer&quot;,
@@ -726,7 +720,7 @@ safebump
       &quot;panic&quot;:54000,
       &quot;losedate&quot;: 1347519599,
       &quot;goaldate&quot;: 0,
-      &quot;goalval&quot;: 25.0, 
+      &quot;goalval&quot;: 25.0,
       &quot;rate&quot;: -0.5,
       &quot;updated_at&quot;: 1345774578,
       &quot;queued&quot;: false },
@@ -741,7 +735,7 @@ safebump
       &quot;goalval&quot;: null,
       &quot;rate&quot;: 8.0,
       &quot;updated_at&quot;: 1345771188,
-      &quot;queued&quot;: false } 
+      &quot;queued&quot;: false }
   ]</code></pre>
 
 <h3 id="http_request_4">HTTP Request</h3>
@@ -774,7 +768,7 @@ safebump
     &quot;panic&quot;: 54000,
     &quot;losedate&quot;: 1447519599,
     &quot;goaldate&quot;: 1400000000,
-    &quot;goalval&quot;: null, 
+    &quot;goalval&quot;: null,
     &quot;rate&quot;: 5,
     &quot;updated_at&quot;: 1345774578,
     &quot;queued&quot;: false }</code></pre>
@@ -829,7 +823,7 @@ safebump
 <p>Examples</p>
 </blockquote>
 
-<pre class="json"><code class="json">  PUT /api/v1/users/alice/goals.json?slug=exercise&amp;title=Work+Out+Even+More&amp;panic=3600
+<pre class="json"><code class="json">  PUT /api/v1/users/alice/goals/exercise.json?slug=exercise&amp;title=Work+Out+Even+More&amp;panic=3600
 
   { &quot;slug&quot;: &quot;exercise&quot;,
     &quot;title&quot;: &quot;Work Out Even More&quot;,
@@ -839,7 +833,7 @@ safebump
     &quot;panic&quot;: 3600,
     &quot;losedate&quot;: 1447519599,
     &quot;goaldate&quot;: 1400000000,
-    &quot;goalval&quot;: null, 
+    &quot;goalval&quot;: null,
     &quot;rate&quot;: 5,
     &quot;updated_at&quot;: 1345774578,
     &quot;queued&quot;: false }</code></pre>
@@ -920,7 +914,7 @@ safebump
 
 <h2 id="dialroad">[deprecated] Update a yellow brick road</h2>
 
-<pre class="json"><code class="json">  // Example request 
+<pre class="json"><code class="json">  // Example request
 
   POST /api/v1/users/alice/goals/weight/dial_road.json?rate=-0.5&amp;goalval=166&amp;goaldate=null
 
@@ -940,7 +934,7 @@ safebump
 
 <p><code>POST /users/</code><em>u</em><code>/goals/</code><em>g</em><code>/dial_road.json</code></p>
 <aside class='notice'>
-Note: the dial_road endpoint is deprecated in favor of 
+Note: the dial_road endpoint is deprecated in favor of
 <a href='#putgoal' title='on the goal update endpoint'>roadall</a> which, despite its highly confusing state, is the future.
 </aside>
 <p>Change the slope of the yellow brick road (starting after the one-week <a href="http://blog.beeminder.com/dial">Akrasia Horizon</a>) for beeminder.com/<em>u</em>/<em>g</em>.</p>
@@ -1041,7 +1035,7 @@ Note: the dial_road endpoint is deprecated in favor of
 
 <pre class="json"><code class="json">  GET /api/v1/users/alice/goals/weight/datapoints.json
 
-  [{&quot;id&quot;:&quot;1&quot;, &quot;timestamp&quot;:1234567890, &quot;daystamp&quot;:&quot;20090213&quot;, &quot;value&quot;:7, &quot;comment&quot;:&quot;&quot;, &quot;updated_at&quot;:123, &quot;requestid&quot;:&quot;a&quot;}, 
+  [{&quot;id&quot;:&quot;1&quot;, &quot;timestamp&quot;:1234567890, &quot;daystamp&quot;:&quot;20090213&quot;, &quot;value&quot;:7, &quot;comment&quot;:&quot;&quot;, &quot;updated_at&quot;:123, &quot;requestid&quot;:&quot;a&quot;},
    {&quot;id&quot;:&quot;2&quot;, &quot;timestamp&quot;:1234567891, &quot;daystamp&quot;:&quot;20090214&quot;, &quot;value&quot;:8, &quot;comment&quot;:&quot;&quot;, &quot;updated_at&quot;:123, &quot;requestid&quot;:&quot;b&quot;}]</code></pre>
 
 <h3 id="http_request_12">HTTP Request</h3>
@@ -1105,18 +1099,18 @@ Note: the dial_road endpoint is deprecated in favor of
 
 <pre class="json"><code class="json">  POST /api/v1/users/alice/goals/weight/datapoints/create_all.json?datapoints=[{&quot;timestamp&quot;:1343577600,&quot;value&quot;:220.6,&quot;comment&quot;:&quot;blah+blah&quot;, &quot;requestid&quot;:&quot;abcd182475929&quot;}, {&quot;timestamp&quot;:1343491200,&quot;value&quot;:220.7, &quot;requestid&quot;:&quot;abcd182475930&quot;}]
 
-  [ { &quot;id&quot;: &quot;5016fa9adad11576ad00000f&quot;, 
-      &quot;timestamp&quot;: 1343577600, 
+  [ { &quot;id&quot;: &quot;5016fa9adad11576ad00000f&quot;,
+      &quot;timestamp&quot;: 1343577600,
       &quot;daystamp&quot;: &quot;20120729&quot;,
-      &quot;value&quot;: 220.6, 
-      &quot;comment&quot;: &quot;blah blah&quot;, 
+      &quot;value&quot;: 220.6,
+      &quot;comment&quot;: &quot;blah blah&quot;,
       &quot;updated_at&quot;: 1343577600,
-      &quot;requestid&quot;:&quot;abcd182475923&quot;}, 
-    { &quot;id&quot;: &quot;5016fa9bdad11576ad000010&quot;, 
-      &quot;timestamp&quot;: 1343491200, 
+      &quot;requestid&quot;:&quot;abcd182475923&quot;},
+    { &quot;id&quot;: &quot;5016fa9bdad11576ad000010&quot;,
+      &quot;timestamp&quot;: 1343491200,
       &quot;daystamp&quot;: &quot;20120728&quot;,
-      &quot;value&quot;: 220.7, 
-      &quot;comment&quot;: &quot;&quot;, 
+      &quot;value&quot;: 220.7,
+      &quot;comment&quot;: &quot;&quot;,
       &quot;updated_at&quot;: 1343491200,
       &quot;requestid&quot;:&quot;abcd182475923&quot; } ]</code></pre>
 
@@ -1144,10 +1138,10 @@ Note: the dial_road endpoint is deprecated in favor of
 
 <pre class="json"><code class="json">  PUT /api/v1/users/alice/goals/weight/datapoints/5016fa9adad11576ad00000f.json&amp;comment=a+real+comment
 
-  { &quot;id&quot;: &quot;5016fa9adad11576ad00000f&quot;, 
-    &quot;value&quot;: 220.6, 
-    &quot;comment&quot;: &quot;a real comment&quot;, 
-    &quot;timestamp&quot;: 1343577600, 
+  { &quot;id&quot;: &quot;5016fa9adad11576ad00000f&quot;,
+    &quot;value&quot;: 220.6,
+    &quot;comment&quot;: &quot;a real comment&quot;,
+    &quot;timestamp&quot;: 1343577600,
     &quot;daystamp&quot;: &quot;20120729&quot;,
     &quot;updated_at&quot;: 1343577609 }</code></pre>
 
@@ -1179,10 +1173,10 @@ Note: the dial_road endpoint is deprecated in favor of
 
 <pre class="json"><code class="json">  DELETE /api/v1/users/alice/goals/weight/datapoints/5016fa9adad11576ad00000f.json
 
-  { &quot;id&quot;: &quot;5016fa9adad11576ad00000f&quot;, 
-    &quot;value&quot;: 220.6, 
-    &quot;comment&quot;: &quot;a real comment&quot;, 
-    &quot;timestamp&quot;: 1343577600, 
+  { &quot;id&quot;: &quot;5016fa9adad11576ad00000f&quot;,
+    &quot;value&quot;: 220.6,
+    &quot;comment&quot;: &quot;a real comment&quot;,
+    &quot;timestamp&quot;: 1343577600,
     &quot;daystamp&quot;: &quot;20120729&quot;,
     &quot;updated_at&quot;: 1343577609 }</code></pre>
 
@@ -1231,9 +1225,9 @@ Note: the dial_road endpoint is deprecated in favor of
 <p>Example response</p>
 </blockquote>
 
-<pre class="json"><code class="json">  { &quot;id&quot;: &quot;5016fa9adad11576ad00000f&quot;, 
-    &quot;amount&quot;: 10, 
-    &quot;note&quot;: &quot;I&#39;m not worthy; charge myself $10&quot;, 
+<pre class="json"><code class="json">  { &quot;id&quot;: &quot;5016fa9adad11576ad00000f&quot;,
+    &quot;amount&quot;: 10,
+    &quot;note&quot;: &quot;I&#39;m not worthy; charge myself $10&quot;,
     &quot;username&quot;: &quot;alice&quot; }</code></pre>
 
 <h3 id="http_request_17">HTTP request</h3>
@@ -1264,8 +1258,8 @@ Note: the dial_road endpoint is deprecated in favor of
 <p>Example of POSTed data</p>
 </blockquote>
 
-<pre class="json"><code class="json">  { &quot;goal&quot;: 
-    { &quot;id&quot;: &quot;5016fa9adad11576ad00000f&quot;, 
+<pre class="json"><code class="json">  { &quot;goal&quot;:
+    { &quot;id&quot;: &quot;5016fa9adad11576ad00000f&quot;,
     &quot;slug&quot;: &quot;example&quot;, ... }  
   }</code></pre>
 
