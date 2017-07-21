@@ -411,7 +411,6 @@ leadtime,
 alertstart,
 id,
 queued,
-panic,
 updated_at,
 burner,
 yaw,
@@ -510,8 +509,6 @@ safebump
 <li><code>custom</code>: Full access to the underlying goal parameters</li>
 
 <li><code>losedate</code> (number): Unix timestamp of derailment. When you’ll be off the road if nothing is reported.</li>
-
-<li><code>panic</code> (number): Panic threshold. How long before derailment to panic. Default: 54000 (15 hours).</li>
 
 <li><code>queued</code> (boolean): Whether the graph is currently being updated to reflect new data.</li>
 
@@ -674,7 +671,6 @@ safebump
     &quot;thumb_url&quot;: &quot;http://static.beeminder.com/alice+weight-thumb.png&quot;,    
     &quot;goal_type&quot;: &quot;fatloser&quot;,            
     &quot;losedate&quot;: 1358524800,        
-    &quot;panic&quot;: 54000,                 
     &quot;queued&quot;: false,                
     &quot;updated_at&quot;: 1337479214,       
     &quot;datapoints&quot;: [{&quot;timestamp&quot;: 1325523600,    
@@ -717,7 +713,6 @@ safebump
       &quot;goal_type&quot;: &quot;inboxer&quot;,
       &quot;graph_url&quot;: &quot;http://static.beeminder.com/alice+gmailzero.png&quot;,
       &quot;thumb_url&quot;: &quot;http://static.beeminder.com/alice+weight-thumb.png&quot;,
-      &quot;panic&quot;:54000,
       &quot;losedate&quot;: 1347519599,
       &quot;goaldate&quot;: 0,
       &quot;goalval&quot;: 25.0,
@@ -729,7 +724,6 @@ safebump
       &quot;goal_type&quot;: &quot;hustler&quot;,
       &quot;graph_url&quot;: &quot;http://static.beeminder.com/alice+fitbit-me.png&quot;,
       &quot;thumb_url&quot;: &quot;http://static.beeminder.com/alice+fitbit-thumb.png&quot;,
-      &quot;panic&quot;: 86400,
       &quot;losedate&quot;: 1346482799,
       &quot;goaldate&quot;: 1349582400,
       &quot;goalval&quot;: null,
@@ -765,7 +759,6 @@ safebump
     &quot;goal_type&quot;: &quot;hustler&quot;,
     &quot;graph_url&quot;: &quot;http://static.beeminder.com/alice+exercise.png&quot;,
     &quot;thumb_url&quot;: &quot;http://static.beeminder.com/alice+exercise-thumb.png&quot;,
-    &quot;panic&quot;: 54000,
     &quot;losedate&quot;: 1447519599,
     &quot;goaldate&quot;: 1400000000,
     &quot;goalval&quot;: null,
@@ -796,8 +789,6 @@ safebump
 
 <li><code>initval</code> (number): Initial value for today’s date. Default: 0.</li>
 
-<li>[<code>panic</code>] (number)</li>
-
 <li>[<code>secret</code>] (boolean)</li>
 
 <li>[<code>datapublic</code>] (boolean)</li>
@@ -823,14 +814,14 @@ safebump
 <p>Examples</p>
 </blockquote>
 
-<pre class="json"><code class="json">  PUT /api/v1/users/alice/goals/exercise.json?slug=exercise&amp;title=Work+Out+Even+More&amp;panic=3600
+<pre class="json"><code class="json">  PUT /api/v1/users/alice/goals/exercise.json?title=Work+Out+Even+More&amp;secret=true
 
   { &quot;slug&quot;: &quot;exercise&quot;,
     &quot;title&quot;: &quot;Work Out Even More&quot;,
     &quot;goal_type&quot;: &quot;hustler&quot;,
     &quot;graph_url&quot;: &quot;http://static.beeminder.com/alice+exercise.png&quot;,
     &quot;thumb_url&quot;: &quot;http://static.beeminder.com/alice+exercise-thumb.png&quot;,
-    &quot;panic&quot;: 3600,
+    &quot;secret&quot;: true,
     &quot;losedate&quot;: 1447519599,
     &quot;goaldate&quot;: 1400000000,
     &quot;goalval&quot;: null,
@@ -842,7 +833,7 @@ safebump
 
 <p><code>PUT /users/</code><em>u</em><code>/goals/</code><em>g</em><code>.json</code></p>
 
-<p>Update user <em>u</em>‘s goal with slug <em>g</em>. This is similar to the call to create a new goal, but the goal type (<code>goal_type</code>) cannot be changed. To change any of {<code>goaldate</code>, <code>goalval</code>, <code>rate</code>} use the <code>dial_road</code> call below.</p>
+<p>Update user <em>u</em>‘s goal with slug <em>g</em>. This is similar to the call to create a new goal, but the goal type (<code>goal_type</code>) cannot be changed. To change any of {<code>goaldate</code>, <code>goalval</code>, <code>rate</code>} use <code>roadall</code>.</p>
 
 <h3 id="parameters_6">Parameters</h3>
 
@@ -852,8 +843,6 @@ safebump
 <li>[<code>title</code>] (string)</li>
 
 <li>[<code>yaxis</code>] (string)</li>
-
-<li>[<code>panic</code>] (number)</li>
 
 <li>[<code>secret</code>] (boolean)</li>
 
@@ -874,6 +863,8 @@ safebump
 <li>This is a superset of <code>dial_road</code> (which changes just the last row of this roadall).</li>
 
 <li>Validation is not yet implemented for exponential goals (so this will error on them, unless you are an admin).</li>
+
+<li>If you change rate units in the same call, the road will be updated first, and rate units second, so make adjustments to the road in terms of the original rate units, or make two separate calls, first updating rate units, then sending your adjusted road.</li>
 </ul>
 </li>
 
