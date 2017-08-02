@@ -231,6 +231,10 @@
 
 <h2 id="introduction">Introduction</h2>
 
+<blockquote>
+<p>See <a href='https://github.com/beeminder'>github.com/beeminder</a> for API libraries in various languages. Examples here are currently just curl so far.</p>
+</blockquote>
+
 <p>In case you’re here to automate adding data to Beeminder, there’s a good chance we’ve got you covered with our <a href="http://beeminder.com/zapier" title="Zapier is a service like IFTTT that connects hundreds of disparate webservices. In the case of Beeminder you can create triggers in other webservices that automatically cause data to be added to Beeminder graphs.">Zapier integration</a> or our <a href="http://ifthisMINDthat.com" title="IFTTT = If This Then That">IFTTT integration</a>. If you’re looking for ideas for things to do with the Beeminder API, we have a <a href="http://blog.beeminder.com/api" title="This was the blog post that originally announced our API in 2012 but we've updated occasionally since then with links to things people are doing with it">blog post with lots of examples</a>. The <a href="http://forum.beeminder.com/c/tech" title="Yay Discourse.org!">tech category of our forum</a> is a good place to ask questions and show off what you’re working on.</p>
 
 <p>It’s really important to us that this API be easy for developers to use so please don’t be shy about asking us questions. Whether you post in <a href="http://forum.beeminder.com" title="The above link is the Tech subset of the forum; this link is to the main page for the forum">the forum</a> or email us at <strong>support@beeminder.com</strong> we’ve invariably found that questions people avoided asking for fear they were dumb turned out to point to things we needed to improve in the API or the documentation. So lean on us heavily as you’re hacking away with our API – it helps us a lot when you do!</p>
@@ -247,7 +251,9 @@
 
 <p>All API endpoints require authentication. There are two ways to authenticate. Both ultimately give you a token which you must then include with every API request.</p>
 <aside class='notice'>
-Note: A common mistake is to pass the personal auth token but call the parameter access_token, or vice-versa. The parameter name for your personal auth token should be `auth_token`.
+Note: A common mistake is to pass the personal auth token but call the parameter
+access_token, or vice-versa. 
+The parameter name for your personal auth token should be `auth_token`.
 </aside>
 <h2 id="personal_authentication_token">Personal authentication token</h2>
 
@@ -610,18 +616,18 @@ safebump
 </ul>
 
 <p>The goal types are shorthand for a collection of settings of more fundamental goal attributes. Note that changing the goal type of an already-created goal has no effect on those fundamental goal attributes. The following table lists what those attributes are.</p>
-<table><thead><tr><th><code>hustler</code></th><th><code>biker</code></th><th><code>fatloser</code></th><th><code>gainer</code></th><th><code>inboxer</code></th><th><code>drinker</code></th></tr></thead><tbody><tr><td style="text-align: left;"><code>yaw</code></td><td style="text-align: left;">1</td><td style="text-align: left;">1</td><td style="text-align: left;">-1</td><td style="text-align: left;">1</td><td style="text-align: left;">-1</td></tr>
-<tr><td style="text-align: left;"><code>dir</code></td><td style="text-align: left;">1</td><td style="text-align: left;">1</td><td style="text-align: left;">-1</td><td style="text-align: left;">1</td><td style="text-align: left;">-1</td></tr>
-<tr><td style="text-align: left;"><code>exprd</code></td><td style="text-align: left;">false</td><td style="text-align: left;">false</td><td style="text-align: left;">false</td><td style="text-align: left;">false</td><td style="text-align: left;">false</td></tr>
-<tr><td style="text-align: left;"><code>kyoom</code></td><td style="text-align: left;">true</td><td style="text-align: left;">false</td><td style="text-align: left;">false</td><td style="text-align: left;">false</td><td style="text-align: left;">false</td></tr>
-<tr><td style="text-align: left;"><code>odom</code></td><td style="text-align: left;">false</td><td style="text-align: left;">true</td><td style="text-align: left;">false</td><td style="text-align: left;">false</td><td style="text-align: left;">false</td></tr>
-<tr><td style="text-align: left;"><code>edgy</code></td><td style="text-align: left;">false</td><td style="text-align: left;">false</td><td style="text-align: left;">false</td><td style="text-align: left;">false</td><td style="text-align: left;">false</td></tr>
-<tr><td style="text-align: left;"><code>noisy</code></td><td style="text-align: left;">false</td><td style="text-align: left;">false</td><td style="text-align: left;">true</td><td style="text-align: left;">true</td><td style="text-align: left;">false</td></tr>
-<tr><td style="text-align: left;"><code>aggday</code></td><td style="text-align: left;">“sum”</td><td style="text-align: left;">“last”</td><td style="text-align: left;">“min”</td><td style="text-align: left;">“last”</td><td style="text-align: left;">“min”</td></tr>
-<tr><td style="text-align: left;"><code>steppy</code></td><td style="text-align: left;">true</td><td style="text-align: left;">true</td><td style="text-align: left;">false</td><td style="text-align: left;">false</td><td style="text-align: left;">true</td></tr>
-<tr><td style="text-align: left;"><code>rosy</code></td><td style="text-align: left;">false</td><td style="text-align: left;">false</td><td style="text-align: left;">true</td><td style="text-align: left;">true</td><td style="text-align: left;">false</td></tr>
-<tr><td style="text-align: left;"><code>movingav</code></td><td style="text-align: left;">false</td><td style="text-align: left;">false</td><td style="text-align: left;">true</td><td style="text-align: left;">true</td><td style="text-align: left;">false</td></tr>
-<tr><td style="text-align: left;"><code>aura</code></td><td style="text-align: left;">false</td><td style="text-align: left;">false</td><td style="text-align: left;">true</td><td style="text-align: left;">true</td><td style="text-align: left;">false</td></tr>
+<table><thead><tr><th>parameter</th><th><code>hustler</code></th><th><code>biker</code></th><th><code>fatloser</code></th><th><code>gainer</code></th><th><code>inboxer</code></th><th><code>drinker</code></th></tr></thead><tbody><tr><td style="text-align: left;"><code>yaw</code></td><td style="text-align: left;">1</td><td style="text-align: left;">1</td><td style="text-align: left;">-1</td><td style="text-align: left;">1</td><td style="text-align: left;">-1</td><td style="text-align: left;">-1</td></tr>
+<tr><td style="text-align: left;"><code>dir</code></td><td style="text-align: left;">1</td><td style="text-align: left;">1</td><td style="text-align: left;">-1</td><td style="text-align: left;">1</td><td style="text-align: left;">-1</td><td style="text-align: left;">1</td></tr>
+<tr><td style="text-align: left;"><code>exprd</code></td><td style="text-align: left;">false</td><td style="text-align: left;">false</td><td style="text-align: left;">false</td><td style="text-align: left;">false</td><td style="text-align: left;">false</td><td style="text-align: left;">false</td></tr>
+<tr><td style="text-align: left;"><code>kyoom</code></td><td style="text-align: left;">true</td><td style="text-align: left;">false</td><td style="text-align: left;">false</td><td style="text-align: left;">false</td><td style="text-align: left;">false</td><td style="text-align: left;">true</td></tr>
+<tr><td style="text-align: left;"><code>odom</code></td><td style="text-align: left;">false</td><td style="text-align: left;">true</td><td style="text-align: left;">false</td><td style="text-align: left;">false</td><td style="text-align: left;">false</td><td style="text-align: left;">false</td></tr>
+<tr><td style="text-align: left;"><code>edgy</code></td><td style="text-align: left;">false</td><td style="text-align: left;">false</td><td style="text-align: left;">false</td><td style="text-align: left;">false</td><td style="text-align: left;">false</td><td style="text-align: left;">true</td></tr>
+<tr><td style="text-align: left;"><code>noisy</code></td><td style="text-align: left;">false</td><td style="text-align: left;">false</td><td style="text-align: left;">true</td><td style="text-align: left;">true</td><td style="text-align: left;">false</td><td style="text-align: left;">false</td></tr>
+<tr><td style="text-align: left;"><code>aggday</code></td><td style="text-align: left;">“sum”</td><td style="text-align: left;">“last”</td><td style="text-align: left;">“min”</td><td style="text-align: left;">“max”</td><td style="text-align: left;">“min”</td><td style="text-align: left;">“sum”</td></tr>
+<tr><td style="text-align: left;"><code>steppy</code></td><td style="text-align: left;">true</td><td style="text-align: left;">true</td><td style="text-align: left;">false</td><td style="text-align: left;">false</td><td style="text-align: left;">true</td><td style="text-align: left;">true</td></tr>
+<tr><td style="text-align: left;"><code>rosy</code></td><td style="text-align: left;">false</td><td style="text-align: left;">false</td><td style="text-align: left;">true</td><td style="text-align: left;">true</td><td style="text-align: left;">false</td><td style="text-align: left;">false</td></tr>
+<tr><td style="text-align: left;"><code>movingav</code></td><td style="text-align: left;">false</td><td style="text-align: left;">false</td><td style="text-align: left;">true</td><td style="text-align: left;">true</td><td style="text-align: left;">false</td><td style="text-align: left;">false</td></tr>
+<tr><td style="text-align: left;"><code>aura</code></td><td style="text-align: left;">false</td><td style="text-align: left;">false</td><td style="text-align: left;">true</td><td style="text-align: left;">true</td><td style="text-align: left;">false</td><td style="text-align: left;">false</td></tr>
 </tbody></table>
 <p>There are four broad, theoretical categories – called the platonic goal types – that goals fall into, defined by <code>dir</code> and <code>yaw</code>:</p>
 
