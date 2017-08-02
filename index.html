@@ -1032,7 +1032,7 @@ Note: the dial_road endpoint is deprecated in favor of
 <p>Examples</p>
 </blockquote>
 
-<pre class="json"><code class="json">  GET /api/v1/users/alice/goals/weight/datapoints.json
+<pre class="json"><code class="json">  GET /api/v1/users/alice/goals/weight/datapoints.json?auth_token=yourtoken
 
   [{&quot;id&quot;:&quot;1&quot;, &quot;timestamp&quot;:1234567890, &quot;daystamp&quot;:&quot;20090213&quot;, &quot;value&quot;:7, &quot;comment&quot;:&quot;&quot;, &quot;updated_at&quot;:123, &quot;requestid&quot;:&quot;a&quot;},
    {&quot;id&quot;:&quot;2&quot;, &quot;timestamp&quot;:1234567891, &quot;daystamp&quot;:&quot;20090214&quot;, &quot;value&quot;:8, &quot;comment&quot;:&quot;&quot;, &quot;updated_at&quot;:123, &quot;requestid&quot;:&quot;b&quot;}]</code></pre>
@@ -1057,7 +1057,7 @@ Note: the dial_road endpoint is deprecated in favor of
 <p>Examples</p>
 </blockquote>
 
-<pre class="json"><code class="json">  POST /api/v1/users/alice/goals/weight/datapoints.json?timestamp=1325523600&amp;value=130.1&amp;comment=sweat+a+lot+today
+<pre class="json"><code class="json">  POST /api/v1/users/alice/goals/weight/datapoints.json?auth_token=yourtoken&amp;timestamp=1325523600&amp;value=130.1&amp;comment=sweat+a+lot+today
 
   { &quot;timestamp&quot;: 1325523600,
     &quot;daystamp&quot;: &quot;20120102&quot;,
