@@ -202,7 +202,7 @@
     <link href="images/favicon" rel="icon" type="image/" />
   </head>
 
-  <body class="index" data-languages="[&quot;curl&quot;]">
+  <body class="index" data-languages="[&quot;curl&quot;,&quot;ruby&quot;]">
     <a href="#" id="nav-button">
       <span>
         NAV
@@ -213,6 +213,7 @@
       <img src="images/bee_logo_110.png" alt="Bee logo 110" />
         <div class="lang-selector">
               <a href="#" data-language-name="curl">curl</a>
+              <a href="#" data-language-name="ruby">ruby</a>
         </div>
       <div id="toc">
       </div>
@@ -258,10 +259,14 @@ The parameter name for your personal auth token should be `auth_token`.
 <h2 id="personal_authentication_token">Personal authentication token</h2>
 
 <blockquote>
+<p>Ruby code examples are coming soon, but in the meantime <a href='https://github.com/beeminder/beeminder-gem' title='Ruby gem for Beeminder API access'>check out the gem on Github</a>.</p>
+</blockquote>
+
+<blockquote>
 <p>For example, if your username is “alice” and your token is “abc123” you can query information about your “weight” goal like so:</p>
 </blockquote>
 
-<pre class="json"><code class="json">  GET /api/v1/users/alice/goals/weight.json?auth_token=abc123</code></pre>
+<pre class="curl"><code class="curl">  curl https://www.beeminder.com/api/v1/users/alice/goals/weight.json?auth_token=abc123</code></pre>
 
 <p>This authentication pattern is for making API calls just to your own Beeminder account.</p>
 
@@ -313,7 +318,7 @@ The parameter name for your personal auth token should be `auth_token`.
 
 <h3 id="4_include_access_token_as_a_parameter">4. Include access token as a parameter</h3>
 
-<pre class="json"><code class="json">  GET https://www.beeminder.com/api/v1/users/me.json?access_token=abc123</code></pre>
+<pre class="curl"><code class="curl">  curl https://www.beeminder.com/api/v1/users/me.json?access_token=abc123</code></pre>
 
 <p>Append the access token as a parameter on any API requests you make on behalf of that user. For example, your first request will probably be to get information about the <a href="#user">User</a> who just authorized your app.</p>
 
@@ -355,16 +360,16 @@ The parameter name for your personal auth token should be `auth_token`.
 <p>Examples</p>
 </blockquote>
 
-<pre class="json"><code class="json">  GET /api/v1/users/alice.json?goals_filter=frontburner
+<pre class="curl"><code class="curl">  curl https://www.beeminder.com/api/v1/users/alice.json?auth_token=abc123</code></pre>
 
-  { &quot;username&quot;: &quot;alice&quot;,
+<pre class="json"><code class="json">  { &quot;username&quot;: &quot;alice&quot;,
     &quot;timezone&quot;: &quot;America/Los_Angeles&quot;,
     &quot;updated_at&quot;: 1343449880,                       
     &quot;goals&quot;: [&quot;gmailzero&quot;, &quot;weight&quot;] }</code></pre>
 
-<pre class="json"><code class="json">  GET /api/v1/users/alice.json?diff_since=1352561989
+<pre class="curl"><code class="curl">  curl https://www.beeminder.com/api/v1/users/alice.json?diff_since=1352561989&amp;auth_token=abc123</code></pre>
 
-  { &quot;username&quot;: &quot;alice&quot;,
+<pre class="json"><code class="json">  { &quot;username&quot;: &quot;alice&quot;,
     &quot;timezone&quot;: &quot;America/Los_Angeles&quot;,
     &quot;updated_at&quot;: 1343449880,                       
     &quot;goals&quot;: [ {&quot;slug&quot;: &quot;weight&quot;, ...,
@@ -378,8 +383,7 @@ The parameter name for your personal auth token should be `auth_token`.
                     &quot;id&quot;: &quot;5f9d79fd86f33468d4&quot;}],
                &quot;title&quot;: &quot;Weight Loss&quot;, ...},
                { another goal }, ... ],
-    &quot;deleted_goals&quot;: [{ &quot;id&quot;: &quot;519279fd86f33468ne&quot;}, ... ]
-}</code></pre>
+    &quot;deleted_goals&quot;: [{ &quot;id&quot;: &quot;519279fd86f33468ne&quot;}, ... ] }</code></pre>
 
 <h3 id="http_request">HTTP Request</h3>
 
@@ -453,7 +457,7 @@ safebump
 <p>Examples</p>
 </blockquote>
 
-<pre class="json"><code class="json">  GET /api/v1/users/alice.json?redirect_to_url=https%3A%2F%2Fwww.beeminder.com%2Fpledges</code></pre>
+<pre class="curl"><code class="curl">  curl https://www.beeminder.com/api/v1/users/alice.json?auth_token=abc123&amp;redirect_to_url=https%3A%2F%2Fwww.beeminder.com%2Fpledges</code></pre>
 
 <h3 id="http_request_2">HTTP Request</h3>
 
@@ -665,10 +669,9 @@ safebump
 <p>Examples</p>
 </blockquote>
 
-<pre class="json"><code class="json">
-  GET /api/v1/users/alice/goals/weight.json?datapoints=true
+<pre class="curl"><code class="curl">  curl https://www.beeminder.com/api/v1/users/alice/goals/weight.json?auth_token=abc123&amp;datapoints=true</code></pre>
 
-  { &quot;slug&quot;: &quot;weight&quot;,               
+<pre class="json"><code class="json">  { &quot;slug&quot;: &quot;weight&quot;,               
     &quot;title&quot;: &quot;Weight Loss&quot;,         
     &quot;goaldate&quot;: 1358524800,         
     &quot;goalval&quot;: 166,                 
@@ -711,10 +714,9 @@ safebump
 <p>Examples</p>
 </blockquote>
 
-<pre class="json"><code class="json">  GET /api/v1/users/alice/goals.json?filter=frontburner
+<pre class="curl"><code class="curl">  curl https://www.beeminder.com/api/v1/users/alice/goals.json?auth_token=abc123&amp;filter=frontburner</code></pre>
 
-  [
-    { &quot;slug&quot;: &quot;gmailzero&quot;,
+<pre class="json"><code class="json">  [ { &quot;slug&quot;: &quot;gmailzero&quot;,
       &quot;title&quot;: &quot;Inbox Zero&quot;,
       &quot;goal_type&quot;: &quot;inboxer&quot;,
       &quot;graph_url&quot;: &quot;http://static.beeminder.com/alice+gmailzero.png&quot;,
@@ -735,8 +737,7 @@ safebump
       &quot;goalval&quot;: null,
       &quot;rate&quot;: 8.0,
       &quot;updated_at&quot;: 1345771188,
-      &quot;queued&quot;: false }
-  ]</code></pre>
+      &quot;queued&quot;: false } ]</code></pre>
 
 <h3 id="http_request_4">HTTP Request</h3>
 
@@ -758,9 +759,16 @@ safebump
 <p>Examples</p>
 </blockquote>
 
-<pre class="json"><code class="json">  POST /api/v1/users/alice/goals.json?slug=exercise&amp;title=Work+Out+More&amp;goal_type=hustler&amp;goaldate=1400000000&amp;rate=5&amp;goalval=null
+<pre class="curl"><code class="curl">  curl -X POST https://www.beeminder.com/api/v1/users/alice/goals.json \
+    -d auth_token=abc123 \
+    -d slug=exercise \
+    -d title=Work+Out+More \
+    -d goal_type=hustler \
+    -d goaldate=1400000000 \
+    -d rate=5 \
+    -d goalval=null</code></pre>
 
-  { &quot;slug&quot;: &quot;exercise&quot;,
+<pre class="json"><code class="json">  { &quot;slug&quot;: &quot;exercise&quot;,
     &quot;title&quot;: &quot;Work Out More&quot;,
     &quot;goal_type&quot;: &quot;hustler&quot;,
     &quot;graph_url&quot;: &quot;http://static.beeminder.com/alice+exercise.png&quot;,
@@ -820,9 +828,12 @@ safebump
 <p>Examples</p>
 </blockquote>
 
-<pre class="json"><code class="json">  PUT /api/v1/users/alice/goals/exercise.json?title=Work+Out+Even+More&amp;secret=true
+<pre class="curl"><code class="curl">  curl -X PUT https://www.beeminder.com/api/v1/users/alice/goals/exercise.json \
+    -d auth_token=abc124 \
+    -d title=Work+Out+Even+More \
+    -d secret=true</code></pre>
 
-  { &quot;slug&quot;: &quot;exercise&quot;,
+<pre class="json"><code class="json">  { &quot;slug&quot;: &quot;exercise&quot;,
     &quot;title&quot;: &quot;Work Out Even More&quot;,
     &quot;goal_type&quot;: &quot;hustler&quot;,
     &quot;graph_url&quot;: &quot;http://static.beeminder.com/alice+exercise.png&quot;,
@@ -893,9 +904,9 @@ safebump
 <p>Example Request</p>
 </blockquote>
 
-<pre class="json"><code class="json">  GET /api/v1/users/alice/goals/weight/refresh_graph.json
+<pre class="curl"><code class="curl">  curl https://www.beeminder.com/api/v1/users/alice/goals/weight/refresh_graph.json?auth_token=abc123</code></pre>
 
-  true</code></pre>
+<pre class="json"><code class="json">  true</code></pre>
 
 <h3 id="http_request_7">HTTP Request</h3>
 
@@ -913,11 +924,15 @@ safebump
 
 <h2 id="dialroad">[deprecated] Update a yellow brick road</h2>
 
-<pre class="json"><code class="json">  // Example request
+<pre class="curl"><code class="curl">  // Example request
 
-  POST /api/v1/users/alice/goals/weight/dial_road.json?rate=-0.5&amp;goalval=166&amp;goaldate=null
+  curl -X POST https://www.beeminder.com/api/v1/users/alice/goals/weight/dial_road.json \
+    -d auth_token=abc124 \
+    -d rate=-0.5 \
+    -d goalval=166 \
+    -d goaldate=null</code></pre>
 
-  // Example result
+<pre class="json"><code class="json">  // Example result
 
   { &quot;slug&quot;: &quot;weight&quot;,                       
     &quot;title&quot;: &quot;Weight Loss&quot;,                 
@@ -1032,9 +1047,9 @@ Note: the dial_road endpoint is deprecated in favor of
 <p>Examples</p>
 </blockquote>
 
-<pre class="json"><code class="json">  GET /api/v1/users/alice/goals/weight/datapoints.json?auth_token=yourtoken
+<pre class="curl"><code class="curl">  curl https://www.beeminder.com/api/v1/users/alice/goals/weight/datapoints.json?auth_token=abc123</code></pre>
 
-  [{&quot;id&quot;:&quot;1&quot;, &quot;timestamp&quot;:1234567890, &quot;daystamp&quot;:&quot;20090213&quot;, &quot;value&quot;:7, &quot;comment&quot;:&quot;&quot;, &quot;updated_at&quot;:123, &quot;requestid&quot;:&quot;a&quot;},
+<pre class="json"><code class="json">  [{&quot;id&quot;:&quot;1&quot;, &quot;timestamp&quot;:1234567890, &quot;daystamp&quot;:&quot;20090213&quot;, &quot;value&quot;:7, &quot;comment&quot;:&quot;&quot;, &quot;updated_at&quot;:123, &quot;requestid&quot;:&quot;a&quot;},
    {&quot;id&quot;:&quot;2&quot;, &quot;timestamp&quot;:1234567891, &quot;daystamp&quot;:&quot;20090214&quot;, &quot;value&quot;:8, &quot;comment&quot;:&quot;&quot;, &quot;updated_at&quot;:123, &quot;requestid&quot;:&quot;b&quot;}]</code></pre>
 
 <h3 id="http_request_12">HTTP Request</h3>
@@ -1057,14 +1072,18 @@ Note: the dial_road endpoint is deprecated in favor of
 <p>Examples</p>
 </blockquote>
 
-<pre class="json"><code class="json">  POST /api/v1/users/alice/goals/weight/datapoints.json?auth_token=yourtoken&amp;timestamp=1325523600&amp;value=130.1&amp;comment=sweat+a+lot+today
+<pre class="curl"><code class="curl">  curl -X POST https://www.beeminder.com/api/v1/users/alice/goals/weight/datapoints.json
+    -d auth_token=abc123 \
+    -d timestamp=1325523600 \
+    -d value=130.1 \
+    -d comment=sweat+a+lot+today</code></pre>
 
-  { &quot;timestamp&quot;: 1325523600,
+<pre class="json"><code class="json">  { &quot;timestamp&quot;: 1325523600,
     &quot;daystamp&quot;: &quot;20120102&quot;,
     &quot;value&quot;: 130.1,         
     &quot;comment&quot;: &quot;sweat a lot today&quot;,   
     &quot;id&quot;: &quot;4f9dd9fd86f22478d3000008&quot;,
-    &quot;requestid&quot;:&quot;abcd182475925&quot;}</code></pre>
+    &quot;requestid&quot;:&quot;abcd182475925&quot; }</code></pre>
 
 <h3 id="http_request_13">HTTP Request</h3>
 
@@ -1096,9 +1115,11 @@ Note: the dial_road endpoint is deprecated in favor of
 <p>Examples</p>
 </blockquote>
 
-<pre class="json"><code class="json">  POST /api/v1/users/alice/goals/weight/datapoints/create_all.json?datapoints=[{&quot;timestamp&quot;:1343577600,&quot;value&quot;:220.6,&quot;comment&quot;:&quot;blah+blah&quot;, &quot;requestid&quot;:&quot;abcd182475929&quot;}, {&quot;timestamp&quot;:1343491200,&quot;value&quot;:220.7, &quot;requestid&quot;:&quot;abcd182475930&quot;}]
+<pre class="curl"><code class="curl">  curl -X POST https://www.beeminder.com/api/v1/users/alice/goals/weight/datapoints/create_all.json
+    -d auth_token=abc123 \
+    -d datapoints=[{&quot;timestamp&quot;:1343577600,&quot;value&quot;:220.6,&quot;comment&quot;:&quot;blah+blah&quot;, &quot;requestid&quot;:&quot;abcd182475929&quot;}, {&quot;timestamp&quot;:1343491200,&quot;value&quot;:220.7, &quot;requestid&quot;:&quot;abcd182475930&quot;}]</code></pre>
 
-  [ { &quot;id&quot;: &quot;5016fa9adad11576ad00000f&quot;,
+<pre class="json"><code class="json">  [ { &quot;id&quot;: &quot;5016fa9adad11576ad00000f&quot;,
       &quot;timestamp&quot;: 1343577600,
       &quot;daystamp&quot;: &quot;20120729&quot;,
       &quot;value&quot;: 220.6,
@@ -1135,9 +1156,11 @@ Note: the dial_road endpoint is deprecated in favor of
 <p>Examples</p>
 </blockquote>
 
-<pre class="json"><code class="json">  PUT /api/v1/users/alice/goals/weight/datapoints/5016fa9adad11576ad00000f.json&amp;comment=a+real+comment
+<pre class="curl"><code class="curl">  curl -X PUT https://www.beeminder.com/api/v1/users/alice/goals/weight/datapoints/5016fa9adad11576ad00000f.json \
+    -d auth_token=abc123 \
+    -d comment=a+real+comment</code></pre>
 
-  { &quot;id&quot;: &quot;5016fa9adad11576ad00000f&quot;,
+<pre class="json"><code class="json">  { &quot;id&quot;: &quot;5016fa9adad11576ad00000f&quot;,
     &quot;value&quot;: 220.6,
     &quot;comment&quot;: &quot;a real comment&quot;,
     &quot;timestamp&quot;: 1343577600,
@@ -1170,9 +1193,9 @@ Note: the dial_road endpoint is deprecated in favor of
 <p>Examples</p>
 </blockquote>
 
-<pre class="json"><code class="json">  DELETE /api/v1/users/alice/goals/weight/datapoints/5016fa9adad11576ad00000f.json
+<pre class="curl"><code class="curl">  curl -X DELETE https://www.beeminder.com/api/v1/users/alice/goals/weight/datapoints/5016fa9adad11576ad00000f.json?auth_token=abc123</code></pre>
 
-  { &quot;id&quot;: &quot;5016fa9adad11576ad00000f&quot;,
+<pre class="json"><code class="json">  { &quot;id&quot;: &quot;5016fa9adad11576ad00000f&quot;,
     &quot;value&quot;: 220.6,
     &quot;comment&quot;: &quot;a real comment&quot;,
     &quot;timestamp&quot;: 1343577600,
@@ -1281,6 +1304,7 @@ Note: the dial_road endpoint is deprecated in favor of
       <div class="dark-box">
           <div class="lang-selector">
                 <a href="#" data-language-name="curl">curl</a>
+                <a href="#" data-language-name="ruby">ruby</a>
           </div>
       </div>
     </div>
