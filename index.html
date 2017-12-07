@@ -1181,14 +1181,13 @@ A Datapoint belongs to a <a href="#goal">Goal</a>, which has many Datapoints.</p
 <li>[<code>daystamp</code>] (string). Optionally you can include daystamp instead of the timestamp. If both are included, timestamp takes precedence.</li>
 <li>[<code>comment</code>] (string)</li>
 <li>[<code>requestid</code>] (string):
-Alphanumeric string to uniquely identify this datapoint (scoped to this goal. The same <code>requestid</code> can be used for different goals without being considered a duplicate).
+String to uniquely identify this datapoint (scoped to this goal. The same <code>requestid</code> can be used for different goals without being considered a duplicate).
 Clients can use this to verify that Beeminder received a datapoint (important for clients with spotty connectivity).
 Using requestids also means clients can safely resend datapoints without accidentally creating duplicates.
 If <code>requestid</code> is included and the datapoint is identical to the existing datapoint with that requestid then the datapoint will be ignored (the API will return &quot;duplicate datapoint&quot;).
 If <code>requestid</code> is included and the datapoint differs from the existing one with the same requestid then the datapoint will be updated.
-If no datapoint with the requestid exists then of course the datapoint is simply created.
-In other words, this is an upsert endpoint and requestid is an idempotency key.
-NB: Must contain only alphanumeric characters or it will be ignored.</li>
+If no datapoint with the requestid exists then the datapoint is simply created.
+In other words, this is an upsert endpoint and requestid is an idempotency key.</li>
 </ul>
 <h3 id='returns-12'>Returns</h3>
 <p>The updated <a href="#datapoint">Datapoint</a> object.</p>
