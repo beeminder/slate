@@ -666,10 +666,8 @@ Allows third-party apps to send the user to a specific part of the website witho
 <li><code>mathishard</code> (array of 3 numbers): The goaldate, goalval, and rate -- all filled in. (The road dial specifies 2 out of 3 and you can check this if you want Beeminder to do the math for you on inferring the third one.)</li>
 <li><code>headsum</code> (string): Summary of where you are with respect to the yellow brick road, e.g., &quot;Right on track in the top lane&quot;.</li>
 <li><code>limsum</code> (string): Summary of what you need to do to eke by, e.g., &quot;+2 within 1 day&quot;.</li>
-<li><code>exprd</code> (boolean): Exponential road; interpret rate as fractional, not absolute, change.</li>
 <li><code>kyoom</code> (boolean): Cumulative; plot values as the sum of all those entered so far, aka auto-summing.</li>
 <li><code>odom</code> (boolean): Treat zeros as accidental odometer resets.</li>
-<li><code>noisy</code> (boolean): Deprecated. Compute road width based on data, not just road rate.</li>
 <li><code>aggday</code> (string): How to aggregate points on the same day, eg, min/max/mean.</li>
 <li><code>steppy</code> (boolean): Join dots with purple steppy-style line.</li>
 <li><code>rosy</code> (boolean): Show the rose-colored dots and connecting line.</li>
@@ -734,15 +732,6 @@ The following table lists what those attributes are.</p>
 <td>1</td>
 <td>-1</td>
 <td>1</td>
-</tr>
-<tr>
-<td><code>exprd</code></td>
-<td>false</td>
-<td>false</td>
-<td>false</td>
-<td>false</td>
-<td>false</td>
-<td>false</td>
 </tr>
 <tr>
 <td><code>kyoom</code></td>
