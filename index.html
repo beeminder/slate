@@ -1006,7 +1006,6 @@ To change any of {<code>goaldate</code>, <code>goalval</code>, <code>rate</code>
 <li>The last row can be <code>[null, value, rate]</code> but no other row can be.</li>
 <li>You can also send a road with dates specified as either a daystamp or date string, e.g. &quot;20170727&quot; or &quot;2017-07-27&quot;.</li>
 <li>This is a superset of <code>dial_road</code> (which changes just the last row of this roadall).</li>
-<li>Validation is not yet implemented for exponential goals (so this will error on them, unless you are an admin).</li>
 <li>If you change rate units in the same call, the road will be updated first, and rate units second, so make adjustments to the road in terms of the original rate units, or make two separate calls, first updating rate units, then sending  your adjusted road.</li>
 </ul></li>
 <li>[<code>datasource</code>] (string): one of {&quot;manual&quot;, &quot;api&quot;, &quot;ifttt&quot;, &quot;zapier&quot;, or <code>clientname</code>}. Default: &quot;manual&quot;.
