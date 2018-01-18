@@ -698,6 +698,7 @@ Allowed range is -17*3600 to 6*3600 (7am to 6am).</li>
 <li><code>alertstart</code> (number): Seconds after midnight that we start sending you reminders (on the day that you&#39;re scheduled to start getting them, see <code>leadtime</code> above).</li>
 <li><code>plotall</code> (boolean): Whether to plot all the datapoints, or only the <code>aggday</code>&#39;d one. So if false then only the official datapoint that&#39;s counted is plotted.</li>
 <li><code>last_datapoint</code> (<a href="#datapoint">Datapoint</a>): The last datapoint entered for this goal.</li>
+<li><code>integery</code> (boolean): Assume that the units must be integer values.  Used for things like <code>limsum</code>.</li>
 </ul>
 
 <p>The goal types are shorthand for a collection of settings of more fundamental goal attributes.
