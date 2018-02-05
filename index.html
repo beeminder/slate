@@ -683,7 +683,7 @@ Allows third-party apps to send the user to a specific part of the website witho
 <li><code>fullroad</code> (array): Like <code>roadall</code> but with the nulls filled in.</li>
 <li><code>rah</code> (number): Road value (y-value of the centerline of the yellow brick road) at the akrasia horizon (today plus one week).</li>
 <li><code>delta</code> (number): Distance from the centerline of the yellow brick road to today&#39;s datapoint (<code>curval</code>).</li>
-<li><code>delta_text</code> (string): The text that describes how far the goal is from each lane of the road -- orange, blue, green. If the goal is on the good side of a given lane, the &quot;?&quot; character will appear.</li>
+<li><code>delta_text</code> (string): The text that describes how far the goal is from each lane of the road &mdash; orange, blue, green. If the goal is on the good side of a given lane, the &quot;?&quot; character will appear.</li>
 <li><code>safebump</code> (number): The absolute y-axis number you need to reach to get one additional day of safety buffer.</li>
 <li><code>id</code> (string of hex digits): Deprecated. We always use user/slug as the goal identifier in the API.</li>
 <li><code>callback_url</code> (string): Callback URL, as
@@ -808,20 +808,24 @@ The following table lists what those attributes are.</p>
 </tr>
 </tbody></table>
 
-<p>There are four broad, theoretical categories -- called the platonic goal types -- that goals fall into, defined by <code>dir</code> and <code>yaw</code>:</p>
+<p>There are four broad, theoretical categories &mdash; called the platonic goal types &mdash; that goals fall into, defined by <code>dir</code> and <code>yaw</code>:</p>
 
-<p><code>PHAT = dir -1 &amp; yaw -1</code>: &quot;go down, like weightloss or gmailzero&quot;<br>
-<code>MOAR = dir +1 &amp; yaw +1</code>: &quot;go up, like work out more&quot;<br>
+<p><code>MOAR = dir +1 &amp; yaw +1</code>: &quot;go up, like work out more&quot;<br>
+<code>PHAT = dir -1 &amp; yaw -1</code>: &quot;go down, like weightloss or gmailzero&quot;<br>
 <code>WEEN = dir +1 &amp; yaw -1</code>: &quot;go up less, like quit smoking&quot;<br>
 <code>RASH = dir -1 &amp; yaw +1</code>: &quot;go down less, ie, rationing, <a href="http://beeminder.com/d/contacts" title="The Beeminder CEO with an early Beeminder graph to ration his supply of 'daily' contact lenses to last for 2 years, till 2013">for example</a>&quot;</p>
 
-<p>The <code>dir</code> parameter is mostly just for the above categorization, but is used specifically in the following ways:</p>
+<p>The <code>dir</code> parameter, for which direction the road is expected to go, is mostly just for the above categorization, but is used specifically in the following ways:</p>
 
 <ol>
 <li>Where to draw the watermarks (amount pledged and number of safe days)</li>
 <li>How to phrase things like &quot;bare min of +123 in 4 days&quot; and the status line (also used in bot email subjects)</li>
 <li>Which direction is the optimistic one for the rosy dots algorithm</li>
 </ol>
+
+<aside class="notice">
+Clearing up confusion about WEEN and RASH goal types: Beeminder generally plots the cumulative total of your metric, such as total cigarettes smoked. So even a quit-smoking goal will slope up (`dir>0`). Just that it will slope up less and less steeply as you wean yourself. When you actually quit, the slope will be zero. That's why "WEEN" goals are sloping up but good side is down. The opposite case &mdash; sloping down but good side's up &mdash; is called "RASH" and is rarely used. It's for beeminding a number that you want to go down slowly. Maybe cigarettes remaining in a carton that you want to be your last, or bottles of fresh water remaining post-apocalypse &mdash; someday this goal type will be useful!
+</aside>
 
 <p>If you just want the dot color, here&#39;s how to infer it from <code>lane</code> and <code>yaw</code>:</p>
 
@@ -835,7 +839,7 @@ The following table lists what those attributes are.</p>
 
 <p>Finally, the way to tell if a goal has finished successfully is <code>now &gt;= goaldate &amp;&amp; goaldate &lt; losedate</code>.
 That is, you win if you hit the goal date before hitting <code>losedate</code>.
-You don&#39;t have to actually reach the goal value -- staying on the yellow brick road till the end suffices.</p>
+You don&#39;t have to actually reach the goal value &mdash; staying on the yellow brick road till the end suffices.</p>
 
 <h2 id="getgoal">Get information about a goal</h2>
 
@@ -866,7 +870,7 @@ You don&#39;t have to actually reach the goal value -- staying on the yellow bri
 </span></code></pre><h3 id='http-request-3'>HTTP Request</h3>
 <p><code>GET /users/</code><em>u</em><code>/goals/</code><em>g</em><code>.json</code></p>
 
-<p>Gets goal details for user <em>u</em>&#39;s goal <em>g</em> -- beeminder.com/<em>u</em>/<em>g</em>.</p>
+<p>Gets goal details for user <em>u</em>&#39;s goal <em>g</em> &mdash; beeminder.com/<em>u</em>/<em>g</em>.</p>
 <h3 id='parameters-3'>Parameters</h3>
 <ul>
 <li>[<code>datapoints</code>] (boolean): Whether to send the goal&#39;s datapoints in the response. Default: <code>false</code>.</li>
@@ -1002,7 +1006,7 @@ To change any of {<code>goaldate</code>, <code>goalval</code>, <code>rate</code>
 
 <ul>
 <li>This must not make the goal easier between now and the akrasia horizon (unless you are an admin).</li>
-<li>Use <code>roadall</code> returned by <a href="#getgoal">goal GET</a>, not <code>road</code> -- the latter is missing the first and last rows (for the sake of backwards compatibility).</li>
+<li>Use <code>roadall</code> returned by <a href="#getgoal">goal GET</a>, not <code>road</code> &mdash; the latter is missing the first and last rows (for the sake of backwards compatibility).</li>
 <li>The first row must be <code>[date, value, null]</code> and gives the start of the road, same as <code>initday</code> and <code>initval</code> in <a href="#getgoal">goal GET</a>.</li>
 <li>The last row can be <code>[null, value, rate]</code> but no other row can be.</li>
 <li>You can also send a road with dates specified as either a daystamp or date string, e.g. &quot;20170727&quot; or &quot;2017-07-27&quot;.</li>
@@ -1073,7 +1077,7 @@ for beeminder.com/<em>u</em>/<em>g</em>.</p>
 <li><code>goalval</code> (number or null)</li>
 </ul>
 
-<p>Exactly two of <code>goaldate</code>, <code>goalval</code>, and <code>rate</code> should be specified -- setting two implies the third.</p>
+<p>Exactly two of <code>goaldate</code>, <code>goalval</code>, and <code>rate</code> should be specified &mdash; setting two implies the third.</p>
 <h3 id='returns-7'>Returns</h3>
 <p>The updated <a href="#goal">Goal</a> object.</p>
 
@@ -1137,7 +1141,7 @@ A Datapoint belongs to a <a href="#goal">Goal</a>, which has many Datapoints.</p
 </span></code></pre><h3 id='http-request-12'>HTTP Request</h3>
 <p><code>GET /users/</code><em>u</em><code>/goals/</code><em>g</em><code>/datapoints.json</code></p>
 
-<p>Get the list of datapoints for user <em>u</em>&#39;s goal <em>g</em> -- beeminder.com/<em>u</em>/<em>g</em>.</p>
+<p>Get the list of datapoints for user <em>u</em>&#39;s goal <em>g</em> &mdash; beeminder.com/<em>u</em>/<em>g</em>.</p>
 <h3 id='parameters-12'>Parameters</h3>
 <p>None.</p>
 <h3 id='returns-11'>Returns</h3>
@@ -1162,7 +1166,7 @@ A Datapoint belongs to a <a href="#goal">Goal</a>, which has many Datapoints.</p
 </span></code></pre><h3 id='http-request-13'>HTTP Request</h3>
 <p><code>POST /users/</code><em>u</em><code>/goals/</code><em>g</em><code>/datapoints.json</code></p>
 
-<p>Add a new datapoint to user <em>u</em>&#39;s goal <em>g</em> -- beeminder.com/<em>u</em>/<em>g</em>.</p>
+<p>Add a new datapoint to user <em>u</em>&#39;s goal <em>g</em> &mdash; beeminder.com/<em>u</em>/<em>g</em>.</p>
 <h3 id='parameters-13'>Parameters</h3>
 <ul>
 <li><code>value</code> (number)<br></li>
