@@ -365,7 +365,7 @@ Whether you post in
 or email us at <strong>support@beeminder.com</strong> we&#39;ve invariably found that questions 
 people avoided asking for fear they were dumb turned out to point to things we 
 needed to improve in the API or the documentation.
-So lean on us heavily as you&#39;re hacking away with our API -- it helps us a lot 
+So lean on us heavily as you&#39;re hacking away with our API &mdash; it helps us a lot 
 when you do!</p>
 <h2 id='preliminaries'>Preliminaries</h2>
 <p>The base URL for all requests is <code>https://www.beeminder.com/api/v1/</code></p>
@@ -631,7 +631,7 @@ Allows third-party apps to send the user to a specific part of the website witho
 <li><code>fineprint</code> (string): The user-provided description of what exactly they are committing to.</li>
 <li><code>yaxis</code> (string): The label for the y-axis of the graph. E.g., &quot;Cumulative total hours&quot;.</li>
 <li><code>goaldate</code> (number): Unix timestamp (in seconds) of the goal date.</li>
-<li><code>goalval</code> (number): Goal value -- the number the yellow brick road will eventually reach. E.g., 70 kilograms.</li>
+<li><code>goalval</code> (number): Goal value &mdash; the number the yellow brick road will eventually reach. E.g., 70 kilograms.</li>
 <li><code>rate</code> (number): The slope of the (final section of the) yellow brick road.</li>
 <li><code>graph_url</code> (string): URL for the goal&#39;s graph image. E.g., &quot;http://static.beeminder.com/alice/weight.png&quot;.</li>
 <li><code>thumb_url</code> (string): URL for the goal&#39;s graph thumbnail image. E.g., &quot;http://static.beeminder.com/alice/weight-thumb.png&quot;.</li>
@@ -663,7 +663,7 @@ Allows third-party apps to send the user to a specific part of the website witho
 <li><code>yaw</code> (number): Good side of the road. I.e., the side of the road (+1/-1 = above/below) that makes you say &quot;yay&quot;.</li>
 <li><code>dir</code> (number): Direction the road is sloping, usually the same as yaw.</li>
 <li><code>lane</code> (number): Where you are with respect to the yellow brick road (2 or more = above the road, 1 = top lane, -1 = bottom lane, -2 or less = below the road).</li>
-<li><code>mathishard</code> (array of 3 numbers): The goaldate, goalval, and rate -- all filled in. (The road dial specifies 2 out of 3 and you can check this if you want Beeminder to do the math for you on inferring the third one.)</li>
+<li><code>mathishard</code> (array of 3 numbers): The goaldate, goalval, and rate &mdash; all filled in. (The road dial specifies 2 out of 3 and you can check this if you want Beeminder to do the math for you on inferring the third one.)</li>
 <li><code>headsum</code> (string): Summary of where you are with respect to the yellow brick road, e.g., &quot;Right on track in the top lane&quot;.</li>
 <li><code>limsum</code> (string): Summary of what you need to do to eke by, e.g., &quot;+2 within 1 day&quot;.</li>
 <li><code>kyoom</code> (boolean): Cumulative; plot values as the sum of all those entered so far, aka auto-summing.</li>
@@ -824,7 +824,7 @@ The following table lists what those attributes are.</p>
 </ol>
 
 <aside class="notice">
-Clearing up confusion about WEEN and RASH goal types: Beeminder generally plots the cumulative total of your metric, such as total cigarettes smoked. So even a quit-smoking goal will slope up (`dir>0`). Just that it will slope up less and less steeply as you wean yourself. When you actually quit, the slope will be zero. That's why "WEEN" goals are sloping up but good side is down. The opposite case &mdash; sloping down but good side's up &mdash; is called "RASH" and is rarely used. It's for beeminding a number that you want to go down slowly. Maybe cigarettes remaining in a carton that you want to be your last, or bottles of fresh water remaining post-apocalypse &mdash; someday this goal type will be useful!
+Clearing up confusion about WEEN and RASH goal types: Beeminder generally plots the cumulative total of your metric, such as total cigarettes smoked. So even a quit-smoking goal will slope up (dir&gt;0). Just that it will slope up less and less steeply as you wean yourself. When you actually quit, the slope will be zero. That's why "WEEN" goals are sloping up but good side is down. The opposite case &mdash; sloping down but good side's up &mdash; is called "RASH" and is rarely used. It's for beeminding a number that you want to go down slowly. Maybe cigarettes remaining in a carton that you want to be your last, or bottles of fresh water remaining post-apocalypse &mdash; someday this goal type will be useful!
 </aside>
 
 <p>If you just want the dot color, here&#39;s how to infer it from <code>lane</code> and <code>yaw</code>:</p>
@@ -1342,23 +1342,23 @@ Check your HTTP response code, but also we will usually pass back a JSON object 
 </tr>
 <tr>
 <td>401</td>
-<td>Unauthorized -- Wrong / missing key. (Check your parameter name?)</td>
+<td>Unauthorized &mdash; Wrong / missing key. (Check your parameter name?)</td>
 </tr>
 <tr>
 <td>404</td>
-<td>Not Found -- Couldn&#39;t find that resource, or path requested.</td>
+<td>Not Found &mdash; Couldn&#39;t find that resource, or path requested.</td>
 </tr>
 <tr>
 <td>406</td>
-<td>Not Acceptable -- Check the format of your params?</td>
+<td>Not Acceptable &mdash; Check the format of your params?</td>
 </tr>
 <tr>
 <td>500</td>
-<td>Internal Server Error -- We had a problem with our server. Try again later.</td>
+<td>Internal Server Error &mdash; We had a problem with our server. Try again later.</td>
 </tr>
 <tr>
 <td>503</td>
-<td>Service Unavailable -- We&#39;re temporarily offline for maintenance. Please try again later.</td>
+<td>Service Unavailable &mdash; We&#39;re temporarily offline for maintenance. Please try again later.</td>
 </tr>
 </tbody></table>
 
