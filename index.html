@@ -464,10 +464,10 @@ who just authorized your app.</p>
 
 <p>You can literally use &quot;me&quot; in place of the username for any endpoint and it will be macro-expanded to the username of the authorized user.</p>
 <h3 id='5-optional-de-authorization-callback'>5. Optional: De-authorization callback</h3>
-<p>If you provide a Post De-Authorization Callback URL when you register your client, we will make a POST to your endpoint when a user removes your app. The POST will include the access_token removed in the body of the request.</p>
+<p>If you provide a Post De-Authorization Callback URL when you register your client, we will make a POST to your endpoint when a user removes your app. The POST will include a single parameter, <code>access_token</code> in the body of the request. The value of this parameter will be the token that was de-authorized.</p>
 <h3 id='6-optional-autofetch-callback'>6. Optional: Autofetch callback</h3>
 <p>The autofetch callback URL is also optional.
-We will POST to this URL if provided, including the params username, and slug when the user wants new data from you.
+We will POST to this URL if provided, including the params <code>username</code>, and <code>slug</code> in the body of the request when the user wants new data from you.
 E.g., when the user pushes the manual refresh button, or prior to sending alerts to the user, and before derailing the goal at the end of an eep day.</p>
 
 <p><a href="#">Back to top</a></p>
@@ -960,7 +960,7 @@ You don&#39;t have to actually reach the goal value &mdash; staying on the yello
 
 <p><a href="http://youtu.be/QM9Bynjh2Lk?t=4m14s">Exactly</a> two out of three of <code>goaldate</code>, <code>goalval</code>, and <code>rate</code> are required.</p>
 
-<p>If you pass in your API client&#39;s registered name for the <code>datasource</code>, and your client has a registered <code>autofetch_callback_url</code>, we will POST <code>{username: u, slug: s}</code> to your callback when this goal wants new data.</p>
+<p>If you pass in your API client&#39;s registered name for the <code>datasource</code>, and your client has a registered <code>autofetch_callback_url</code>, we will POST to your callback when this goal wants new data, as outlined in <a href="http://localhost:4567/#6-optional-autofetch-callback">Client OAuth</a>.</p>
 <h3 id='returns-4'>Returns</h3>
 <p>The newly created <a href="#goal">Goal</a> object.</p>
 
@@ -1016,7 +1016,7 @@ To change any of {<code>goaldate</code>, <code>goalval</code>, <code>rate</code>
 <li>[<code>datasource</code>] (string): one of {&quot;manual&quot;, &quot;api&quot;, &quot;ifttt&quot;, &quot;zapier&quot;, or <code>clientname</code>}. Default: &quot;manual&quot;.
 
 <ul>
-<li>If you pass in your api client&#39;s registered name for <code>datasource</code>, and  your client has a registered <code>autofetch_callback_url</code>, we will POST <code>{username: u, slug: s}</code> to your callback when this goal wants new data.</li>
+<li>If you pass in your API client&#39;s registered name for the <code>datasource</code>, and your client has a registered <code>autofetch_callback_url</code>, we will POST to your callback when this goal wants new data, as outlined in <a href="http://localhost:4567/#6-optional-autofetch-callback">Client OAuth</a>.</li>
 </ul></li>
 </ul>
 <h3 id='returns-5'>Returns</h3>
