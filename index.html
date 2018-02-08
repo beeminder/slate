@@ -275,7 +275,7 @@
                     <a href="#refresh" class="toc-h2 toc-link" data-title="Goal Resource">Force a fetch of autodata and graph refresh</a>
                   </li>
                   <li>
-                    <a href="#dialroad" class="toc-h2 toc-link" data-title="Goal Resource">\[deprecated\] Update a yellow brick road</a>
+                    <a href="#dialroad" class="toc-h2 toc-link" data-title="Goal Resource">[deprecated] Update a yellow brick road</a>
                   </li>
                   <li>
                     <a href="#shortcircuit" class="toc-h2 toc-link" data-title="Goal Resource">Short circuit a goal's pledge</a>
@@ -467,7 +467,7 @@ who just authorized your app.</p>
 <p>If you provide a Post De-Authorization Callback URL when you register your client, we will make a POST to your endpoint when a user removes your app. The POST will include a single parameter, <code>access_token</code> in the body of the request. The value of this parameter will be the token that was de-authorized.</p>
 <h3 id='6-optional-autofetch-callback'>6. Optional: Autofetch callback</h3>
 <p>The autofetch callback URL is also optional.
-We will POST to this URL if provided, including the params <code>username</code>, and <code>slug</code> in the body of the request when the user wants new data from you.
+We will POST to this URL if provided, including the parameters <code>username</code> and <code>slug</code> in the body of the request when the user wants new data from you.
 E.g., when the user pushes the manual refresh button, or prior to sending alerts to the user, and before derailing the goal at the end of an eep day.</p>
 
 <p><a href="#">Back to top</a></p>
@@ -1040,7 +1040,7 @@ To change any of {<code>goaldate</code>, <code>goalval</code>, <code>rate</code>
 <p>This is an asynchronous operation, so this endpoint simply returns <strong>true</strong> if the goal was queued and <strong>false</strong> if not.
 It is up to you to watch for an updated graph image.</p>
 
-<h2 id="dialroad">\[deprecated\] Update a yellow brick road</h2>
+<h2 id="dialroad">[deprecated] Update a yellow brick road</h2>
 <pre class="highlight shell tab-shell"><code>  // Example request
 
   curl -X POST https://www.beeminder.com/api/v1/users/alice/goals/weight/dial_road.json <span class="se">\</span>
