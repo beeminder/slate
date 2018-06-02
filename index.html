@@ -443,8 +443,8 @@ this if it contains any special characters like question marks or ampersands.</l
 <blockquote>
 <p>For example, if the user &quot;alice&quot; has access token &quot;abc123&quot; then the following string would be appended to the URL when the user is redirected there:</p>
 </blockquote>
-<pre class="highlight json tab-json"><code><span class="w">  </span><span class="err">?access_token=abc</span><span class="mi">123</span><span class="err">&amp;username=alice</span><span class="w">
-</span></code></pre>
+<pre class="highlight plaintext"><code>  ?access_token=abc123&amp;username=alice
+</code></pre>
 <p>After the user authorizes your application they&#39;ll be redirected to the <code>redirect_uri</code> that you specified, with two additional parameters,
 <code>access_token</code> and
 <code>username</code>, in the
