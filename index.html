@@ -695,7 +695,7 @@ Allows third-party apps to send the user to a specific part of the website witho
 <li><code>delta</code> (number): Distance from the centerline of the yellow brick road to today&#39;s datapoint (<code>curval</code>).</li>
 <li><code>delta_text</code> (string): The text that describes how far the goal is from each lane of the road &mdash; orange, blue, green. If the goal is on the good side of a given lane, the &quot;?&quot; character will appear.</li>
 <li><code>safebump</code> (number): The absolute y-axis number you need to reach to get one additional day of safety buffer.</li>
-<li><code>id</code> (string of hex digits): Deprecated. We always use user/slug as the goal identifier in the API.</li>
+<li><code>id</code> (string of hex digits): We prefer using user/slug as the goal identifier, however since slugs are modifiable, this alphanumeric unique id can be useful!</li>
 <li><code>callback_url</code> (string): Callback URL, as
 <a href="http://forum.beeminder.com/t/webhook-callback-documentation/313" title="In short: you can add a callback to your own server whenever data is added on Beeminder">discussed in the forum</a>.
 WARNING: If different apps change this they&#39;ll step on each other&#39;s toes.</li>
