@@ -695,7 +695,7 @@ Allows third-party apps to send the user to a specific part of the website witho
 <li><code>delta</code> (number): Distance from the centerline of the yellow brick road to today&#39;s datapoint (<code>curval</code>).</li>
 <li><code>delta_text</code> (string): The text that describes how far the goal is from each lane of the road &mdash; orange, blue, green. If the goal is on the good side of a given lane, the &quot;?&quot; character will appear.</li>
 <li><code>safebump</code> (number): The absolute y-axis number you need to reach to get one additional day of safety buffer.</li>
-<li><code>id</code> (string of hex digits): We prefer using user/slug as the goal identifier, however since slugs are modifiable, this alphanumeric unique id can be useful!</li>
+<li><code>id</code> (string of hex digits): We prefer using user/slug as the goal identifier, however, since we began allowing users to change slugs, this id is useful!</li>
 <li><code>callback_url</code> (string): Callback URL, as
 <a href="http://forum.beeminder.com/t/webhook-callback-documentation/313" title="In short: you can add a callback to your own server whenever data is added on Beeminder">discussed in the forum</a>.
 WARNING: If different apps change this they&#39;ll step on each other&#39;s toes.</li>
@@ -964,7 +964,7 @@ You don&#39;t have to actually reach the goal value &mdash; staying on the yello
 <li><code>initval</code> (number): Initial value for today&#39;s date. Default: 0.</li>
 <li>[<code>secret</code>] (boolean)</li>
 <li>[<code>datapublic</code>] (boolean)</li>
-<li>[<code>datasource</code>] (string): one of {&quot;manual&quot;, &quot;api&quot;, &quot;ifttt&quot;, &quot;zapier&quot;, or <code>clientname</code>}. Default: &quot;manual&quot;.</li>
+<li>[<code>datasource</code>] (string): one of {&quot;api&quot;, &quot;ifttt&quot;, &quot;zapier&quot;, or <code>clientname</code>}. Default: none (i.e., &quot;manual&quot;).</li>
 <li>[<code>dryrun</code>] (boolean). Pass this to test the endpoint without actually creating a goal. Defaults to false.</li>
 </ul>
 
@@ -1023,10 +1023,11 @@ To change any of {<code>goaldate</code>, <code>goalval</code>, <code>rate</code>
 <li>This is a superset of <code>dial_road</code> (which changes just the last row of this roadall).</li>
 <li>If you change rate units in the same call, the road will be updated first, and rate units second, so make adjustments to the road in terms of the original rate units, or make two separate calls, first updating rate units, then sending  your adjusted road.</li>
 </ul></li>
-<li>[<code>datasource</code>] (string): one of {&quot;manual&quot;, &quot;api&quot;, &quot;ifttt&quot;, &quot;zapier&quot;, or <code>clientname</code>}. Default: &quot;manual&quot;.
+<li>[<code>datasource</code>] (string): one of {&quot;api&quot;, &quot;ifttt&quot;, &quot;zapier&quot;, or <code>clientname</code>}. Default: none.
 
 <ul>
 <li>If you pass in your API client&#39;s registered name for the <code>datasource</code>, and your client has a registered <code>autofetch_callback_url</code>, we will POST to your callback when this goal wants new data, as outlined in <a href="#6-optional-autofetch-callback">Client OAuth</a>.</li>
+<li>To unset the datasource, (i.e. return to manual entry) pass in the empty string <code>&quot;&quot;</code>.</li>
 </ul></li>
 </ul>
 <h3 id='returns-5'>Returns</h3>
