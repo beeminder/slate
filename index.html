@@ -561,6 +561,7 @@ description,
 goalval,
 rate,
 goaldate,
+svg_url,
 graph_url,
 thumb_url,
 goal_type,
@@ -635,7 +636,7 @@ Allows third-party apps to send the user to a specific part of the website witho
 <p>A Goal object includes everything about a specific goal for a specific user, including the target value and date, the steepness of the yellow brick road, the graph image, and various settings for the goal.</p>
 <h3 id='attributes-2'>Attributes</h3>
 <ul>
-<li><code>slug</code> (string): The final part of the URL of the goal, used as an identifier. E.g, if user &quot;alice&quot; has a goal at beeminder.com/alice/weight then the goal&#39;s slug is &quot;weight&quot;.</li>
+<li><code>slug</code> (string): The final part of the URL of the goal, used as an identifier. E.g., if user &quot;alice&quot; has a goal at beeminder.com/alice/weight then the goal&#39;s slug is &quot;weight&quot;.</li>
 <li><code>updated_at</code> (number): <a href="http://en.wikipedia.org/wiki/Unix_time">Unix timestamp</a> of the last time this goal was updated.</li>
 <li><code>title</code> (string): The title that the user specified for the goal. E.g., &quot;Weight Loss&quot;.</li>
 <li><code>fineprint</code> (string): The user-provided description of what exactly they are committing to.</li>
@@ -643,6 +644,7 @@ Allows third-party apps to send the user to a specific part of the website witho
 <li><code>goaldate</code> (number): Unix timestamp (in seconds) of the goal date.</li>
 <li><code>goalval</code> (number): Goal value &mdash; the number the yellow brick road will eventually reach. E.g., 70 kilograms.</li>
 <li><code>rate</code> (number): The slope of the (final section of the) yellow brick road.</li>
+<li><code>svg_url</code> (string): URL for the goal&#39;s graph svg. E.g., &quot;http://static.beeminder.com/alice/weight.svg&quot;.</li>
 <li><code>graph_url</code> (string): URL for the goal&#39;s graph image. E.g., &quot;http://static.beeminder.com/alice/weight.png&quot;.</li>
 <li><code>thumb_url</code> (string): URL for the goal&#39;s graph thumbnail image. E.g., &quot;http://static.beeminder.com/alice/weight-thumb.png&quot;.</li>
 <li><code>autodata</code> (string): The name of automatic data source, if this goal has one. Will be null for manual goals.</li>
@@ -862,6 +864,7 @@ You don&#39;t have to actually reach the goal value &mdash; staying on the yello
     </span><span class="s2">"goaldate"</span><span class="p">:</span><span class="w"> </span><span class="mi">1358524800</span><span class="p">,</span><span class="w">         
     </span><span class="s2">"goalval"</span><span class="p">:</span><span class="w"> </span><span class="mi">166</span><span class="p">,</span><span class="w">                 
     </span><span class="s2">"rate"</span><span class="p">:</span><span class="w"> </span><span class="kc">null</span><span class="p">,</span><span class="w">                   
+    </span><span class="s2">"svg_url"</span><span class="p">:</span><span class="w">   </span><span class="s2">"http://static.beeminder.com/alice+weight.svg"</span><span class="p">,</span><span class="w">
     </span><span class="s2">"graph_url"</span><span class="p">:</span><span class="w"> </span><span class="s2">"http://static.beeminder.com/alice+weight.png"</span><span class="p">,</span><span class="w">
     </span><span class="s2">"thumb_url"</span><span class="p">:</span><span class="w"> </span><span class="s2">"http://static.beeminder.com/alice+weight-thumb.png"</span><span class="p">,</span><span class="w">    
     </span><span class="s2">"goal_type"</span><span class="p">:</span><span class="w"> </span><span class="s2">"fatloser"</span><span class="p">,</span><span class="w">            
@@ -897,6 +900,7 @@ You don&#39;t have to actually reach the goal value &mdash; staying on the yello
 </code></pre><pre class="highlight json tab-json"><code><span class="w">  </span><span class="p">[</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="s2">"slug"</span><span class="p">:</span><span class="w"> </span><span class="s2">"gmailzero"</span><span class="p">,</span><span class="w">
       </span><span class="s2">"title"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Inbox Zero"</span><span class="p">,</span><span class="w">
       </span><span class="s2">"goal_type"</span><span class="p">:</span><span class="w"> </span><span class="s2">"inboxer"</span><span class="p">,</span><span class="w">
+      </span><span class="s2">"svg_url"</span><span class="p">:</span><span class="w"> </span><span class="s2">"http://static.beeminder.com/alice+gmailzero.svg"</span><span class="p">,</span><span class="w">
       </span><span class="s2">"graph_url"</span><span class="p">:</span><span class="w"> </span><span class="s2">"http://static.beeminder.com/alice+gmailzero.png"</span><span class="p">,</span><span class="w">
       </span><span class="s2">"thumb_url"</span><span class="p">:</span><span class="w"> </span><span class="s2">"http://static.beeminder.com/alice+weight-thumb.png"</span><span class="p">,</span><span class="w">
       </span><span class="s2">"losedate"</span><span class="p">:</span><span class="w"> </span><span class="mi">1347519599</span><span class="p">,</span><span class="w">
@@ -908,6 +912,7 @@ You don&#39;t have to actually reach the goal value &mdash; staying on the yello
     </span><span class="p">{</span><span class="w"> </span><span class="s2">"slug"</span><span class="p">:</span><span class="w"> </span><span class="s2">"fitbit-me"</span><span class="p">,</span><span class="w">
       </span><span class="s2">"title"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Never stop moving"</span><span class="p">,</span><span class="w">
       </span><span class="s2">"goal_type"</span><span class="p">:</span><span class="w"> </span><span class="s2">"hustler"</span><span class="p">,</span><span class="w">
+      </span><span class="s2">"svg_url"</span><span class="p">:</span><span class="w"> </span><span class="s2">"http://static.beeminder.com/alice+fitbit-me.svg"</span><span class="p">,</span><span class="w">
       </span><span class="s2">"graph_url"</span><span class="p">:</span><span class="w"> </span><span class="s2">"http://static.beeminder.com/alice+fitbit-me.png"</span><span class="p">,</span><span class="w">
       </span><span class="s2">"thumb_url"</span><span class="p">:</span><span class="w"> </span><span class="s2">"http://static.beeminder.com/alice+fitbit-thumb.png"</span><span class="p">,</span><span class="w">
       </span><span class="s2">"losedate"</span><span class="p">:</span><span class="w"> </span><span class="mi">1346482799</span><span class="p">,</span><span class="w">
@@ -941,6 +946,7 @@ You don&#39;t have to actually reach the goal value &mdash; staying on the yello
 </code></pre><pre class="highlight json tab-json"><code><span class="w">  </span><span class="p">{</span><span class="w"> </span><span class="s2">"slug"</span><span class="p">:</span><span class="w"> </span><span class="s2">"exercise"</span><span class="p">,</span><span class="w">
     </span><span class="s2">"title"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Work Out More"</span><span class="p">,</span><span class="w">
     </span><span class="s2">"goal_type"</span><span class="p">:</span><span class="w"> </span><span class="s2">"hustler"</span><span class="p">,</span><span class="w">
+    </span><span class="s2">"svg_url"</span><span class="p">:</span><span class="w"> </span><span class="s2">"http://static.beeminder.com/alice+exercise.svg"</span><span class="p">,</span><span class="w">
     </span><span class="s2">"graph_url"</span><span class="p">:</span><span class="w"> </span><span class="s2">"http://static.beeminder.com/alice+exercise.png"</span><span class="p">,</span><span class="w">
     </span><span class="s2">"thumb_url"</span><span class="p">:</span><span class="w"> </span><span class="s2">"http://static.beeminder.com/alice+exercise-thumb.png"</span><span class="p">,</span><span class="w">
     </span><span class="s2">"losedate"</span><span class="p">:</span><span class="w"> </span><span class="mi">1447519599</span><span class="p">,</span><span class="w">
@@ -989,6 +995,7 @@ This indicates that the value is calculated based on the other two fields, as se
 </code></pre><pre class="highlight json tab-json"><code><span class="w">  </span><span class="p">{</span><span class="w"> </span><span class="s2">"slug"</span><span class="p">:</span><span class="w"> </span><span class="s2">"exercise"</span><span class="p">,</span><span class="w">
     </span><span class="s2">"title"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Work Out Even More"</span><span class="p">,</span><span class="w">
     </span><span class="s2">"goal_type"</span><span class="p">:</span><span class="w"> </span><span class="s2">"hustler"</span><span class="p">,</span><span class="w">
+    </span><span class="s2">"svg_url"</span><span class="p">:</span><span class="w"> </span><span class="s2">"http://static.beeminder.com/alice+exercise.svg"</span><span class="p">,</span><span class="w">
     </span><span class="s2">"graph_url"</span><span class="p">:</span><span class="w"> </span><span class="s2">"http://static.beeminder.com/alice+exercise.png"</span><span class="p">,</span><span class="w">
     </span><span class="s2">"thumb_url"</span><span class="p">:</span><span class="w"> </span><span class="s2">"http://static.beeminder.com/alice+exercise-thumb.png"</span><span class="p">,</span><span class="w">
     </span><span class="s2">"secret"</span><span class="p">:</span><span class="w"> </span><span class="kc">true</span><span class="p">,</span><span class="w">
@@ -1064,6 +1071,7 @@ It is up to you to watch for an updated graph image.</p>
   </span><span class="p">{</span><span class="w"> </span><span class="s2">"slug"</span><span class="p">:</span><span class="w"> </span><span class="s2">"weight"</span><span class="p">,</span><span class="w">                       
     </span><span class="s2">"title"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Weight Loss"</span><span class="p">,</span><span class="w">                 
     </span><span class="s2">"goal_type"</span><span class="p">:</span><span class="w"> </span><span class="s2">"fatloser"</span><span class="p">,</span><span class="w">                    
+    </span><span class="s2">"svg_url"</span><span class="p">:</span><span class="w"> </span><span class="s2">"http://static.beeminder.com/alice+weight.svg"</span><span class="p">,</span><span class="w">
     </span><span class="s2">"graph_url"</span><span class="p">:</span><span class="w"> </span><span class="s2">"http://static.beeminder.com/alice+weight.png"</span><span class="p">,</span><span class="w">
     </span><span class="s2">"thumb_url"</span><span class="p">:</span><span class="w"> </span><span class="s2">"http://static.beeminder.com/alice+weight-thumb.png"</span><span class="p">,</span><span class="w">
     </span><span class="s2">"goaldate"</span><span class="p">:</span><span class="w"> </span><span class="kc">null</span><span class="p">,</span><span class="w">                 
