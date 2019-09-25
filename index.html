@@ -1162,7 +1162,12 @@ A Datapoint belongs to a <a href="#goal">Goal</a>, which has many Datapoints.</p
 
 <p>Get the list of datapoints for user <em>u</em>&#39;s goal <em>g</em> &mdash; beeminder.com/<em>u</em>/<em>g</em>.</p>
 <h3 id='parameters-12'>Parameters</h3>
-<p>None.</p>
+<ul>
+<li>[<code>sort</code>] (string): Which attribute to sort on. Defaults to <code>id</code> if none given. </li>
+<li>[<code>count</code>] (integer): Limit results to count number of datapoints. Defaults to all datapoints if parameter is missing. </li>
+<li>[<code>page</code>] (integer): Used to paginate results. </li>
+<li>[<code>per</code>] (integer): Number of results per page. Default 25. Ignored without page parameter. </li>
+</ul>
 <h3 id='returns-11'>Returns</h3>
 <p>The list of <a href="#datapoint">Datapoint</a> objects.</p>
 
