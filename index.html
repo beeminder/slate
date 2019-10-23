@@ -585,7 +585,10 @@ lost,
 won,
 contract,
 delta_text,
-safebump
+safebump,
+gunits,
+todayta,
+hhmmformat
 </code>
 Instead of a <code>datapoints</code> attribute, sending <code>skinny</code> will replace that attribute with a <code>last_datapoint</code> attribute. Its value is a Datapoint hash.</p></li>
 <li><p>[<code>datapoints_count</code>] (number): number of datapoints.
@@ -711,6 +714,9 @@ Allowed range is -17*3600 to 6*3600 (7am to 6am).</li>
 <li><code>plotall</code> (boolean): Whether to plot all the datapoints, or only the <code>aggday</code>&#39;d one. So if false then only the official datapoint that&#39;s counted is plotted.</li>
 <li><code>last_datapoint</code> (<a href="#datapoint">Datapoint</a>): The last datapoint entered for this goal.</li>
 <li><code>integery</code> (boolean): Assume that the units must be integer values.  Used for things like <code>limsum</code>.</li>
+<li><code>gunits</code> (string): Goal units, like &quot;hours&quot; or &quot;pushups&quot; or &quot;pages&quot;.</li>
+<li><code>hhmmformat</code> (boolean): Whether to show data in a &quot;timey&quot; way, with colons.  For example, this would make a 1.5 show up as 1:30.</li>
+<li><code>todayta</code> (boolean): Whether there are any datapoints for today</li>
 </ul>
 
 <p>The goal types are shorthand for a collection of settings of more fundamental goal attributes.
