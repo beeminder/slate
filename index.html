@@ -1248,7 +1248,8 @@ NB: If you&#39;re sending multiple create datapoint requests in rapid succession
 Each must include <code>timestamp</code>, <code>value</code>, and <code>comment</code>, with <code>requestid</code> optional.</li>
 </ul>
 <h3 id='returns-13'>Returns</h3>
-<p>The last created <a href="#datapoint">Datapoint</a>.</p>
+<p>A list of successfully created <a href="#datapoint">Datapoints</a>. 
+Or, in the case of any errors, you will receive an object with two lists, <code>successes</code>, and <code>errors</code>.</p>
 
 <h2 id="putdata">Update a datapoint</h2>
 
