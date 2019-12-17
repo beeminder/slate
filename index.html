@@ -368,7 +368,9 @@ needed to improve in the API or the documentation.
 So lean on us heavily as you&#39;re hacking away with our API &mdash; it helps us a lot 
 when you do!</p>
 <h2 id='preliminaries'>Preliminaries</h2>
-<p>The base URL for all requests is <code>https://www.beeminder.com/api/v1/</code></p>
+<p>The base URL for all requests is <code>https://www.beeminder.com/api/v1/</code>.</p>
+
+<p>A common mistake is to use the wrong URL, e.g. using an <code>http</code> protocol instead of <code>https</code>, or leaving out the <code>www</code> subdomain. We redirect insecure and non <code>www</code> requests to the canonical Beeminder URL, but do not forward parameters for <code>POST</code> requests, so some things will break opaquely.</p>
 
 <p>You may also consume the Beeminder API via
 <a href="https://market.mashape.com/beeminder/beeminder" title="Mashape is a hub for cloud APIs (is how Wikipedia puts it)">Mashape</a>.</p>
@@ -646,7 +648,8 @@ Allows third-party apps to send the user to a specific part of the website witho
 <li><code>yaxis</code> (string): The label for the y-axis of the graph. E.g., &quot;Cumulative total hours&quot;.</li>
 <li><code>goaldate</code> (number): Unix timestamp (in seconds) of the goal date.</li>
 <li><code>goalval</code> (number): Goal value &mdash; the number the yellow brick road will eventually reach. E.g., 70 kilograms.</li>
-<li><code>rate</code> (number): The slope of the (final section of the) yellow brick road.</li>
+<li><code>rate</code> (number): The slope of the (final section of the) yellow brick road. You must also consider <code>runits</code> to fully specify the rate.</li>
+<li><code>runits</code> (string): Rate units. One of <code>y</code>, <code>m</code>, <code>w</code>, <code>d</code>, <code>h</code> indicating that the rate of the yellow brick road is yearly, monthly, weekly, daily, or hourly.</li>
 <li><code>svg_url</code> (string): URL for the goal&#39;s graph svg. E.g., &quot;http://static.beeminder.com/alice/weight.svg&quot;.</li>
 <li><code>graph_url</code> (string): URL for the goal&#39;s graph image. E.g., &quot;http://static.beeminder.com/alice/weight.png&quot;.</li>
 <li><code>thumb_url</code> (string): URL for the goal&#39;s graph thumbnail image. E.g., &quot;http://static.beeminder.com/alice/weight-thumb.png&quot;.</li>
@@ -674,7 +677,6 @@ Allows third-party apps to send the user to a specific part of the website witho
 <li><code>curday</code> (number): Unix timestamp (in seconds) of the end of the yellow brick road, i.e., the most recent (inferred) datapoint.</li>
 <li><code>curval</code> (number): The value of the most recent datapoint.</li>
 <li><code>lastday</code> (number): Unix timestamp (in seconds) of the last (explicitly entered) datapoint.</li>
-<li><code>runits</code> (string): Rate units. One of <code>y</code>, <code>m</code>, <code>w</code>, <code>d</code>, <code>h</code> indicating that the rate of the yellow brick road is yearly, monthly, weekly, daily, or hourly.</li>
 <li><code>yaw</code> (number): Good side of the road. I.e., the side of the road (+1/-1 = above/below) that makes you say &quot;yay&quot;.</li>
 <li><code>dir</code> (number): Direction the road is sloping, usually the same as yaw.</li>
 <li><code>lane</code> (number): Where you are with respect to the yellow brick road (2 or more = above the road, 1 = top lane, -1 = bottom lane, -2 or less = below the road).</li>
