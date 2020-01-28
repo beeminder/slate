@@ -480,7 +480,7 @@ who just authorized your app.</p>
 
 <p>The autofetch callback URL is also optional.
 We will POST to this URL if provided, including the parameters <code>username</code> and <code>slug</code> in the body of the request when the user wants new data from you.
-E.g., when the user pushes the manual refresh button, or prior to sending alerts to the user, and before derailing the goal at the end of a beemergency.</p>
+E.g., when the user pushes the manual refresh button, or prior to sending alerts to the user, and before derailing the goal at the end of a beemergency day.</p>
 
 <p><a href="#">Back to top</a></p>
 
@@ -711,7 +711,7 @@ WARNING: If different apps change this they&#39;ll step on each other&#39;s toes
 <li><code>lanewidth</code> (number): Width of the lanes on either side of the centerline of the yellow brick road, i.e., half the road width.</li>
 <li><code>deadline</code> (number): Seconds by which your deadline differs from midnight. Negative is before midnight, positive is after midnight.
 Allowed range is -17*3600 to 6*3600 (7am to 6am).</li>
-<li><code>leadtime</code> (number): Days before derailing we start sending you reminders. Zero means we start sending them on the beemergency, when you will derail later that day.</li>
+<li><code>leadtime</code> (number): Days before derailing we start sending you reminders. Zero means we start sending them on the beemergency day, when you will derail later that day.</li>
 <li><code>alertstart</code> (number): Seconds after midnight that we start sending you reminders (on the day that you&#39;re scheduled to start getting them, see <code>leadtime</code> above).</li>
 <li><code>plotall</code> (boolean): Whether to plot all the datapoints, or only the <code>aggday</code>&#39;d one. So if false then only the official datapoint that&#39;s counted is plotted.</li>
 <li><code>last_datapoint</code> (<a href="#datapoint">Datapoint</a>): The last datapoint entered for this goal.</li>
