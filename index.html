@@ -595,21 +595,21 @@ Instead of a <code>datapoints</code> attribute, sending <code>skinny</code> will
 Default: null, which will return all goals and datapoints.
 Send a number <code>n</code> to only recieve the <code>n</code> most recently added datapoints, sorted by <code>updated_at</code>.
 Note that the most recently added datapoint could have been a datapoint whose timestamp is well in the past and therefore before other datapoints in that respect.
-For example, my datapoints might look like:  </p></li>
-</ul>
-
-<p>12 1<br>
-14 1<br>
-15 1<br>
-16 1  </p>
-
-<p>If I go back and realize that I forgot to enter data on the 13th, the datapoint for the 13th will be sorted ahead of the one on the 16th:  </p>
-
-<p>12 1<br>
+For example, my datapoints might look like:<br>
+<br>
+12 1<br>
 14 1<br>
 15 1<br>
 16 1<br>
-13 1  </p>
+<br>
+If I go back and realize that I forgot to enter data on the 13th, the datapoint for the 13th will be sorted ahead of the one on the 16th:<br>
+<br>
+12 1<br>
+14 1<br>
+15 1<br>
+16 1<br>
+13 1  </p></li>
+</ul>
 <h3 id='returns'>Returns</h3>
 <p>A <a href="#user">User</a> object.</p>
 
