@@ -342,9 +342,9 @@
         <h1 id='beeminder-api-reference'>Beeminder API Reference</h1><h2 id='introduction'>Introduction</h2>
 <blockquote>
 <p>See 
-<a href="https://github.com/beeminder">github.com/beeminder</a> 
+<a href="https://github.com/beeminder" title="The Beeminder org on GitHub">github.com/beeminder</a> 
 for API libraries in various languages.
-Examples here are currently just curl so far. </p>
+Examples here are currently just Curl and Ruby so far. </p>
 </blockquote>
 
 <p>In case you&#39;re here to automate adding data to Beeminder, there&#39;s a good chance 
@@ -353,27 +353,24 @@ we&#39;ve got you covered with our
 or our
 <a href="http://ifthisMINDthat.com" title="IFTTT = If This Then That">IFTTT integration</a>.
 If you&#39;re looking for ideas for things to do with the Beeminder API, we have a
-<a href="http://blog.beeminder.com/api" title="This was the blog post that originally announced our API in 2012 but we've updated occasionally since then with links to things people are doing with it">blog post with lots of examples</a>.
+<a href="http://blog.beeminder.com/api" title="This was the blog post that originally announced our API in 2012">blog post with lots of examples</a>.
 The
 <a href="http://forum.beeminder.com/c/tech" title="Yay Discourse.org!">tech category of our forum</a>
 is a good place to ask questions and show off what you&#39;re working on.</p>
 
-<p>It&#39;s really important to us that this API be easy for developers to use so 
-please don&#39;t be shy about asking us questions.
+<p>It&#39;s really important to us that this API be easy for developers to use so please don&#39;t be shy about asking us questions.
 Whether you post in
 <a href="http://forum.beeminder.com" title="The above link is the Tech subset of the forum; this link is to the main page for the forum">the forum</a>
-or email us at <strong>support@beeminder.com</strong> we&#39;ve invariably found that questions 
-people avoided asking for fear they were dumb turned out to point to things we 
-needed to improve in the API or the documentation.
-So lean on us heavily as you&#39;re hacking away with our API &mdash; it helps us a lot 
-when you do!</p>
+or email us at <strong>support@beeminder.com</strong> we&#39;ve invariably found that questions people avoided asking for fear they were dumb turned out to point to things we needed to improve in the API or the documentation.
+So lean on us heavily as you&#39;re hacking away with our API &mdash; it helps us a lot when you do!</p>
 <h2 id='preliminaries'>Preliminaries</h2>
 <p>The base URL for all requests is <code>https://www.beeminder.com/api/v1/</code>.</p>
 
-<p>A common mistake is to use the wrong URL, e.g. using an <code>http</code> protocol instead of <code>https</code>, or leaving out the <code>www</code> subdomain. We redirect insecure and non <code>www</code> requests to the canonical Beeminder URL, but do not forward parameters for <code>POST</code> requests, so some things will break opaquely.</p>
+<p>A common mistake is to use the wrong URL, e.g., using an <code>http</code> protocol instead of <code>https</code>, or leaving out the <code>www</code> subdomain. 
+We redirect insecure and non <code>www</code> requests to the canonical Beeminder URL, but do not forward parameters for <code>POST</code> requests, so some things will break opaquely if you don&#39;t use exactly the above base URL.</p>
 
 <p>You may also consume the Beeminder API via
-<a href="https://market.mashape.com/beeminder/beeminder" title="Mashape is a hub for cloud APIs (is how Wikipedia puts it)">Mashape</a>.</p>
+<a href="https://market.mashape.com/beeminder/beeminder" title="RapidAPI (formerly Mashape) is a hub for cloud APIs (is how Wikipedia puts it)">RapidAPI</a>.</p>
 
 <p><a href="#">Back to top</a></p>
 
@@ -381,8 +378,7 @@ when you do!</p>
 
 <p>All API endpoints require authentication.
 There are two ways to authenticate.
-Both ultimately give you a token which you must then include with every API 
-request.</p>
+Both ultimately give you a token which you must then include with every API request.</p>
 
 <aside class="notice">
 Note: A common mistake is to pass the personal auth token but call the parameter
@@ -599,18 +595,21 @@ Instead of a <code>datapoints</code> attribute, sending <code>skinny</code> will
 Default: null, which will return all goals and datapoints.
 Send a number <code>n</code> to only recieve the <code>n</code> most recently added datapoints, sorted by <code>updated_at</code>.
 Note that the most recently added datapoint could have been a datapoint whose timestamp is well in the past and therefore before other datapoints in that respect.
-For example, my datapoints might look like:<br>
-12 1<br>
-14 1<br>
-15 1<br>
-16 1<br>
-If I go back and realize that I forgot to enter data on the 13th, the datapoint for the 13th will be sorted ahead of the one on the 16th:<br>
-12 1<br>
-14 1<br>
-15 1<br>
-16 1<br>
-13 1  </p></li>
+For example, my datapoints might look like:  </p></li>
 </ul>
+
+<p>12 1<br>
+14 1<br>
+15 1<br>
+16 1  </p>
+
+<p>If I go back and realize that I forgot to enter data on the 13th, the datapoint for the 13th will be sorted ahead of the one on the 16th:  </p>
+
+<p>12 1<br>
+14 1<br>
+15 1<br>
+16 1<br>
+13 1  </p>
 <h3 id='returns'>Returns</h3>
 <p>A <a href="#user">User</a> object.</p>
 
@@ -939,7 +938,9 @@ You don&#39;t have to actually reach the goal value &mdash; staying on the yello
 <p>None.</p>
 <h3 id='returns-3'>Returns</h3>
 <p>A list of <a href="#goal">Goal</a> objects for the user.
-Goals are sorted in descending order of urgency, i.e. increasing order of time to derailment.</p>
+Goals are sorted in descending order of urgency, i.e., increasing order of time to derailment.
+(There&#39;s actually a very tiny caveat to this involving the long-deprecated &quot;sort threshold&quot; parameter.
+If you don&#39;t know what that is then you can ignore this parenthetical!)</p>
 
 <h2 id="creategoal">Create a goal for a user</h2>
 
@@ -1037,7 +1038,7 @@ To change any of {<code>goaldate</code>, <code>goalval</code>, <code>rate</code>
 <li>Use <code>roadall</code> returned by <a href="#getgoal">goal GET</a>, not <code>road</code> &mdash; the latter is missing the first and last rows (for the sake of backwards compatibility).</li>
 <li>The first row must be <code>[date, value, null]</code> and gives the start of the road, same as <code>initday</code> and <code>initval</code> in <a href="#getgoal">goal GET</a>.</li>
 <li>The last row can be <code>[null, value, rate]</code> but no other row can be.</li>
-<li>You can also send a road with dates specified as either a daystamp or date string, e.g. &quot;20170727&quot; or &quot;2017-07-27&quot;.</li>
+<li>You can also send a road with dates specified as either a daystamp or date string, e.g., &quot;20170727&quot; or &quot;2017-07-27&quot;.</li>
 <li>This is a superset of <code>dial_road</code> (which changes just the last row of this roadall).</li>
 <li>If you change rate units in the same call, the road will be updated first, and rate units second, so make adjustments to the road in terms of the original rate units, or make two separate calls, first updating rate units, then sending  your adjusted road.</li>
 </ul></li>
@@ -1045,7 +1046,7 @@ To change any of {<code>goaldate</code>, <code>goalval</code>, <code>rate</code>
 
 <ul>
 <li>If you pass in your API client&#39;s registered name for the <code>datasource</code>, and your client has a registered <code>autofetch_callback_url</code>, we will POST to your callback when this goal wants new data, as outlined in <a href="#6-optional-autofetch-callback">Client OAuth</a>.</li>
-<li>To unset the datasource, (i.e. return to manual entry) pass in the empty string <code>&quot;&quot;</code>.</li>
+<li>To unset the datasource, (i.e., return to manual entry) pass in the empty string <code>&quot;&quot;</code>.</li>
 </ul></li>
 </ul>
 <h3 id='returns-5'>Returns</h3>
