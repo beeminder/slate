@@ -576,7 +576,6 @@ updated_at,
 burner,
 yaw,
 lane,
-lanewidth,
 delta,
 runits,
 limsum,
@@ -709,7 +708,7 @@ Allows third-party apps to send the user to a specific part of the website witho
 WARNING: If different apps change this they&#39;ll step on each other&#39;s toes.</li>
 <li><code>description</code> (string): Deprecated. User-supplied description of goal (listed in sidebar of graph page as &quot;Goal Statement&quot;).</li>
 <li><code>graphsum</code> (string): Deprecated. Text summary of the graph, not used in the web UI anymore.</li>
-<li><code>lanewidth</code> (number): Width of the lanes on either side of the centerline of the yellow brick road, i.e., half the road width.</li>
+<li><code>lanewidth</code> (number): Deprecated and in fact should no longer be settable at all. Width of the lanes on either side of the centerline of the yellow brick road, i.e., half the road width.</li>
 <li><code>deadline</code> (number): Seconds by which your deadline differs from midnight. Negative is before midnight, positive is after midnight.
 Allowed range is -17*3600 to 6*3600 (7am to 6am).</li>
 <li><code>leadtime</code> (number): Days before derailing we start sending you reminders. Zero means we start sending them on the beemergency day, when you will derail later that day.</li>
