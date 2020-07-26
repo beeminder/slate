@@ -849,10 +849,10 @@ Clearing up confusion about WEEN and RASH goal types: Beeminder generally plots 
 </aside>
 
 <p>If you just want the dot color, here&#39;s how to infer it from <code>safebuf</code>:</p>
-<pre class="highlight javascript tab-javascript"><code><span class="nx">color</span> <span class="o">=</span> <span class="p">(</span><span class="nx">safebuf</span> <span class="o">&lt;</span> <span class="mi">1</span> <span class="p">?</span> <span class="s2">"red"</span>    <span class="p">:</span>
-         <span class="nx">safebuf</span> <span class="o">&lt;</span> <span class="mi">2</span> <span class="p">?</span> <span class="s2">"orange"</span> <span class="p">:</span>
-         <span class="nx">safebuf</span> <span class="o">&lt;</span> <span class="mi">3</span> <span class="p">?</span> <span class="s2">"blue"</span>   <span class="p">:</span> 
-         <span class="nx">safebuf</span> <span class="o">&lt;</span> <span class="mi">7</span> <span class="p">?</span> <span class="s2">"green"</span>  <span class="p">:</span> <span class="s2">"gray"</span><span class="p">)</span>
+<pre class="highlight plaintext"><code>color = (safebuf &lt; 1 ? "red"    :
+         safebuf &lt; 2 ? "orange" :
+         safebuf &lt; 3 ? "blue"   : 
+         safebuf &lt; 7 ? "green"  : "gray")
 </code></pre>
 <p>Finally, the way to tell if a goal has finished successfully is <code>now &gt;= goaldate &amp;&amp; goaldate &lt; losedate</code>.
 That is, you win if you hit the goal date before hitting <code>losedate</code>.
