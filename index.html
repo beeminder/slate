@@ -848,7 +848,7 @@ The following table lists what those attributes are.</p>
 Clearing up confusion about WEEN and RASH goal types: Beeminder generally plots the cumulative total of your metric, such as total cigarettes smoked. So even a quit-smoking goal will slope up (dir&gt;0). Just that it will slope up less and less steeply as you wean yourself. When you actually quit, the slope will be zero. That's why "WEEN" goals are sloping up but good side is down. The opposite case &mdash; sloping down but good side's up &mdash; is called "RASH" and is rarely used. It's for beeminding a number that you want to go down slowly. Maybe cigarettes remaining in a carton that you want to be your last, or bottles of fresh water remaining post-apocalypse &mdash; someday this goal type will be useful!
 </aside>
 
-<p>If you just want the dot color, here&#39;s how to infer it from <code>safebuf</code>:</p>
+<p>If you just want the dot color, here&#39;s how to infer it from <code>safebuf</code> (see code in sidebar).</p>
 <pre class="highlight plaintext"><code>color = (safebuf &lt; 1 ? "red"    :
          safebuf &lt; 2 ? "orange" :
          safebuf &lt; 3 ? "blue"   : 
