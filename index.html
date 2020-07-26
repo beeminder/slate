@@ -679,9 +679,9 @@ Allows third-party apps to send the user to a specific part of the website witho
 <li><code>lastday</code> (number): Unix timestamp (in seconds) of the last (explicitly entered) datapoint.</li>
 <li><code>yaw</code> (number): Good side of the road. I.e., the side of the road (+1/-1 = above/below) that makes you say &quot;yay&quot;.</li>
 <li><code>dir</code> (number): Direction the road is sloping, usually the same as yaw.</li>
-<li><code>lane</code> (number): Where you are with respect to the yellow brick road (2 or more = above the road, 1 = top lane, -1 = bottom lane, -2 or less = below the road).</li>
+<li><code>lane</code> (number): Deprecated. See <code>losedate</code> and <code>safebuf</code>.</li>
 <li><code>mathishard</code> (array of 3 numbers): The goaldate, goalval, and rate &mdash; all filled in. (The road dial specifies 2 out of 3 and you can check this if you want Beeminder to do the math for you on inferring the third one.)</li>
-<li><code>headsum</code> (string): Summary of where you are with respect to the yellow brick road, e.g., &quot;Right on track in the top lane&quot;.</li>
+<li><code>headsum</code> (string): Deprecated. Summary text blurb saying how much safety buffer you have.</li>
 <li><code>limsum</code> (string): Summary of what you need to do to eke by, e.g., &quot;+2 within 1 day&quot;.</li>
 <li><code>kyoom</code> (boolean): Cumulative; plot values as the sum of all those entered so far, aka auto-summing.</li>
 <li><code>odom</code> (boolean): Treat zeros as accidental odometer resets.</li>
@@ -698,9 +698,10 @@ Allows third-party apps to send the user to a specific part of the website witho
 <li><code>road</code> (array): Array of tuples that can be used to construct the Yellow Brick Road. This field is also known as the road matrix. Each tuple specifies 2 out of 3 of [<code>time</code>, <code>goal</code>, <code>rate</code>]. To construct the road, start with a known starting point (time, value) and then each row of the road matrix specifies 2 out of 3 of {t,v,r} which gives the segment ending at time t. You can walk forward filling in the missing 1-out-of-3 from the (time, value) in the previous row.</li>
 <li><code>roadall</code> (array): Like <code>road</code> but with an additional initial row consisting of [<code>initday</code>, <code>initval</code>, null] and an additional final row consisting of [<code>goaldate</code>, <code>goalval</code>, <code>rate</code>].</li>
 <li><code>fullroad</code> (array): Like <code>roadall</code> but with the nulls filled in.</li>
-<li><code>rah</code> (number): Road value (y-value of the centerline of the yellow brick road) at the akrasia horizon (today plus one week).</li>
-<li><code>delta</code> (number): Distance from the centerline of the yellow brick road to today&#39;s datapoint (<code>curval</code>).</li>
-<li><code>delta_text</code> (string): The text that describes how far the goal is from each lane of the road &mdash; orange, blue, green. If the goal is on the good side of a given lane, the &quot;?&quot; character will appear.</li>
+<li><code>rah</code> (number): Road value (y-value of the bright line of the yellow brick road) at the akrasia horizon (today plus one week).</li>
+<li><code>delta</code> (number): Distance from the yellow brick road to today&#39;s datapoint (<code>curval</code>).</li>
+<li><code>delta_text</code> (string): Deprecated.</li>
+<li><code>safebuf</code> (number): The integer number of safe days. If it&#39;s a beemergency this will be zero.</li>
 <li><code>safebump</code> (number): The absolute y-axis number you need to reach to get one additional day of safety buffer.</li>
 <li><code>id</code> (string of hex digits): We prefer using user/slug as the goal identifier, however, since we began allowing users to change slugs, this id is useful!</li>
 <li><code>callback_url</code> (string): Callback URL, as
@@ -708,7 +709,7 @@ Allows third-party apps to send the user to a specific part of the website witho
 WARNING: If different apps change this they&#39;ll step on each other&#39;s toes.</li>
 <li><code>description</code> (string): Deprecated. User-supplied description of goal (listed in sidebar of graph page as &quot;Goal Statement&quot;).</li>
 <li><code>graphsum</code> (string): Deprecated. Text summary of the graph, not used in the web UI anymore.</li>
-<li><code>lanewidth</code> (number): Deprecated and in fact should no longer be settable at all. Width of the lanes on either side of the centerline of the yellow brick road, i.e., half the road width.</li>
+<li><code>lanewidth</code> (number): Deprecated. Now always zero.</li>
 <li><code>deadline</code> (number): Seconds by which your deadline differs from midnight. Negative is before midnight, positive is after midnight.
 Allowed range is -17*3600 to 6*3600 (7am to 6am).</li>
 <li><code>leadtime</code> (number): Days before derailing we start sending you reminders. Zero means we start sending them on the beemergency day, when you will derail later that day.</li>
@@ -847,16 +848,12 @@ The following table lists what those attributes are.</p>
 Clearing up confusion about WEEN and RASH goal types: Beeminder generally plots the cumulative total of your metric, such as total cigarettes smoked. So even a quit-smoking goal will slope up (dir&gt;0). Just that it will slope up less and less steeply as you wean yourself. When you actually quit, the slope will be zero. That's why "WEEN" goals are sloping up but good side is down. The opposite case &mdash; sloping down but good side's up &mdash; is called "RASH" and is rarely used. It's for beeminding a number that you want to go down slowly. Maybe cigarettes remaining in a carton that you want to be your last, or bottles of fresh water remaining post-apocalypse &mdash; someday this goal type will be useful!
 </aside>
 
-<p>If you just want the dot color, here&#39;s how to infer it from <code>lane</code> and <code>yaw</code>:</p>
-
-<ul>
-<li><code>lane*yaw &gt;= -1</code>: on the road or on the good side of it (blue or green)</li>
-<li><code>lane*yaw &gt;   1</code>: good side of the road (green dot)</li>
-<li><code>lane*yaw ==  1</code>: right lane (blue dot)</li>
-<li><code>lane*yaw == -1</code>: wrong lane (orange dot)</li>
-<li><code>lane*yaw &lt;= -2</code>: emergency day or derailed (red dot)</li>
-</ul>
-
+<p>If you just want the dot color, here&#39;s how to infer it from <code>safebuf</code>:</p>
+<pre class="highlight javascript tab-javascript"><code><span class="nx">color</span> <span class="o">=</span> <span class="p">(</span><span class="nx">safebuf</span> <span class="o">&lt;</span> <span class="mi">1</span> <span class="p">?</span> <span class="s2">"red"</span>    <span class="p">:</span>
+         <span class="nx">safebuf</span> <span class="o">&lt;</span> <span class="mi">2</span> <span class="p">?</span> <span class="s2">"orange"</span> <span class="p">:</span>
+         <span class="nx">safebuf</span> <span class="o">&lt;</span> <span class="mi">3</span> <span class="p">?</span> <span class="s2">"blue"</span>   <span class="p">:</span> 
+         <span class="nx">safebuf</span> <span class="o">&lt;</span> <span class="mi">7</span> <span class="p">?</span> <span class="s2">"green"</span>  <span class="p">:</span> <span class="s2">"gray"</span><span class="p">)</span>
+</code></pre>
 <p>Finally, the way to tell if a goal has finished successfully is <code>now &gt;= goaldate &amp;&amp; goaldate &lt; losedate</code>.
 That is, you win if you hit the goal date before hitting <code>losedate</code>.
 You don&#39;t have to actually reach the goal value &mdash; staying on the yellow brick road till the end suffices.</p>
