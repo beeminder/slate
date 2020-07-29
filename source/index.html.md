@@ -445,6 +445,15 @@ Allowed range is -17*3600 to 6*3600 (7am to 6am).
 * `gunits` (string): Goal units, like "hours" or "pushups" or "pages".
 * `hhmmformat` (boolean): Whether to show data in a "timey" way, with colons.  For example, this would make a 1.5 show up as 1:30.
 * `todayta` (boolean): Whether there are any datapoints for today
+* `safesum`(string): Safety summary; example: "safe for 2 days"
+* `lasttouch` (number): time interval in seconds since unix epoch of when the goal was last touch (modified in some way)
+* `safebuf` (number): Safety buffer, in number of days
+* `recent_data` ([RecentDatapoint](#recentdatapoint)): the most recent data points (max 5)
+* `use_defaults` (boolean): whether to use the default reminder settings
+* `healthkitmetric` (string): name of the HK metric used when updating this goal (via BeeSwift + HealtKit integration); nil or empty otherwise
+
+
+
 
 The goal types are shorthand for a collection of settings of more fundamental goal attributes.
 Note that changing the goal type of an already-created goal has no effect on those fundamental goal attributes.
@@ -860,6 +869,27 @@ The updated [Goal](#goal) object.
 [Back to top](#)
 
 
+<h1 id="recentdatapoint">Recent Datapoint</h1>
+
+A Recent Datapoint consists of a timestamp and a value, an optional comment, and meta information.
+A Recent Datapoint belongs to a [Goal](#goal), which may have up to five recent datapoints.
+Note that this structure differs from Datapoint(#datapoint).
+
+### Attributes
+* `origin` (string): describes the origin of the data point; _(examples: "web", "habitica", "beemios", "strava")_
+* `fulltext` (string): a textual description of when the data point was created; _(example: "2020-Jun-28 entered at 21:44 via BeemiOS")_
+* `urText` (string): optional
+* `id` (Dictionary): identifier of the recent datapoint. Key "`$oid`" and its value
+* `measured_at` (string): timestamp of the measurement/datapoint, as seen by the client? (example: "2020-06-28T21:59:59.999Z") TODO - what is this one and what is created_at
+* `created_at` (string): timestamp of the datapoint, as seen by the server? TODO
+* `canonical` (string):
+* `value` (number): value of the datapoint
+* `comment` (string): optional, user-entered comment accompanying the data
+* `daystamp` (string): date of the datapoint using the year month day format: "yyyyMMdd"
+
+
+
+[Back to top](#)
 
 <h1 id="datapoint">Datapoint Resource</h1>
 
