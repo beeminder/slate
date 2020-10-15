@@ -703,6 +703,7 @@ To change any of {`goaldate`, `goalval`, `rate`} use `roadall`.
 * \[`secret`\] (boolean)
 * \[`datapublic`\] (boolean)
 * \[`nomercy`\] (boolean)
+* \[`gunits`\] (string): goal units
 * \[`roadall`\] (array of arrays like `[date::int, value::float, rate::float]` each with exactly one field null)
   * This must not make the goal easier between now and the akrasia horizon (unless you are an admin).
   * Use `roadall` returned by [goal GET](#getgoal), not `road` &mdash; the latter is missing the first and last rows (for the sake of backwards compatibility).
