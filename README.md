@@ -1,5 +1,7 @@
 # Beeminder API Documentation
 
+This repository contains the source for the website of the Beeminder API Reference https://api.beeminder.com.
+
 To Do
 ------------
 
