@@ -449,7 +449,7 @@ Allowed range is -17*3600 to 6*3600 (7am to 6am).
 * `todayta` (boolean): Whether there are any datapoints for today
 * `tmin` (string): Lower bound on x-axis; don't show data before this date; using yyyy-mm-dd date format. (In Graph Settings this is 'X-min')
 * `tmax` (string): Upper bound on x-axis; don't show data after this date; using yyyy-mm-dd date format. (In Graph Settings this is 'X-max')
-* `tags` (array): A list of the goals's tags.
+* `tags` (array): A list of the goal's tags.
 
 The goal types are shorthand for a collection of settings of more fundamental goal attributes.
 Note that changing the goal type of an already-created goal has no effect on those fundamental goal attributes.
